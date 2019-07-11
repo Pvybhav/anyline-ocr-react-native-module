@@ -11,11 +11,13 @@
     "bundleiOS": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios"
   },
   "dependencies": {
-    "anyline-ocr-react-native-module": "../../plugin",
+    "@babel/core": "^7.5.4",
+    "anyline-ocr-react-native-module": "file:../../plugin",
     "react": "^16.6.3",
     "react-native": "^0.58.5"
   },
   "devDependencies": {
+    "@babel/runtime": "^7.5.4",
     "babel-core": "^7.0.0-bridge",
     "babel-jest": "^24.1.0",
     "babel-preset-react-native": "^5.0.1",
