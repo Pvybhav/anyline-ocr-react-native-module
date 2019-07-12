@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
@@ -9,7 +8,7 @@ import {
   StatusBar,
   AsyncStorage
 } from "react-native";
-import WorkOrders from "./WorkOrders";
+import ServicePointDetails from "./ServicePointDetails";
 
 const userInfo = { userName: "vybhav", password: "vybhav" };
 
@@ -32,16 +31,13 @@ export default class Login extends Component {
   }
 
   handleLogin = async () => {
-    const { navigate } = this.props.navigation;
-
-    console.log(this.props);
     const { userName, password } = this.state;
     if (userInfo.userName === userName && userInfo.password === password) {
-      alert("here");
-      await AsyncStorage.setItem("isLoggedIn", "1");
-      navigate("LandingPage");
+      alert("LoggedIN");
+      // await AsyncStorage.setItem("isLoggedIn", "1");
+      // navigate("LandingPage");
     } else {
-      navigate("Login");
+      alert("Please enter valid credentials");
     }
   };
 
@@ -82,12 +78,12 @@ export default class Login extends Component {
               backgroundColor: "rgb(24, 68, 38)",
               padding: 10
             }}
-            onPress={() => this.setState({ isLoggedIn: true })}
+            onPress={handleLogin}
           >
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
         </View>
-        {!isLoggedIn ? <Text>"Not LoggedIN"</Text> : <WorkOrders />}
+        {/* {!isLoggedIn ? <Text>"Not LoggedIN"</Text> : <ServicePointDetails />} */}
       </View>
     );
   }
