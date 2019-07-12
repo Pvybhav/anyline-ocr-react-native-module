@@ -38,7 +38,7 @@ import Login from "./Login";
 // Disable Warnings
 console.disableYellowBox = true;
 
-class Anyline extends Component {
+export default class Anyline extends Component {
   state = {
     hasScanned: false,
     result: "",
@@ -290,4 +290,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent("RNExampleApp", () => Anyline);
+// AppRegistry.registerComponent("RNExampleApp", () => Anyline);

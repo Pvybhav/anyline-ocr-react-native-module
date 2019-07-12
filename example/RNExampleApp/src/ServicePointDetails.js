@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, View, StatusBar, Text } from "react-native";
+import {
+  StyleSheet,
+  Dimensions,
+  View,
+  StatusBar,
+  Text,
+  TouchableOpacity
+} from "react-native";
 import CardView from "react-native-cardview";
 
 export default class ServicePointDetails extends Component {
@@ -7,28 +14,22 @@ export default class ServicePointDetails extends Component {
     super(props);
     this.state = {};
   }
-  static navigationOptions = {
-    header: null
-  };
+  // static navigationOptions = {
+  //   header: null
+  // };
 
   render() {
-    const { SPID, date, meterNumber } = {
-      SPID: "14",
-      date: "30/07/2019",
-      meterNumber: 23456786754364
-    };
+    const { SPID, date, meterNumber, address } = this.props.workOrder;
     return (
       <View style={styles.container}>
         <StatusBar
           backgroundColor="rgb(51, 214, 102)"
           barStyle="default"
           animated
-          hidden
+          // hidden
           networkActivityIndicatorVisible={false}
-          translucent={false}
+          // translucent={false}
         />
-        <Text>WorkOrder Details</Text>
-
         <CardView
           cardElevation={5}
           cardMaxElevation={5}
@@ -40,7 +41,20 @@ export default class ServicePointDetails extends Component {
           <Text style={styles.cardView_InsideText}>
             Meter No : {meterNumber}
           </Text>
+          <Text style={styles.cardView_InsideText}>Address : {address} </Text>
         </CardView>
+        <View>
+          <TouchableOpacity
+            style={{
+              textAlign: "center",
+              backgroundColor: "rgb(24, 68, 38)",
+              padding: 10,
+              marginTop: 10
+            }}
+          >
+            <Text style={styles.buttonText}>Scan Meter</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
@@ -53,28 +67,25 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#338779"
   },
-  SectionHeaderStyle: {
-    backgroundColor: "#CDDC89",
-    fontSize: 20,
-    padding: 5,
-    color: "#fff"
-  },
-
-  SectionListItemStyle: {
-    fontSize: 15,
-    padding: 15,
-    color: "#000",
-    backgroundColor: "#F5F5F5"
-  },
   cardViewStyle: {
-    width: 250,
-    height: 150
+    width: Dimensions.get("window").width - 20,
+    height: Dimensions.get("window").height - "180"
   },
-
   cardView_InsideText: {
     fontSize: 20,
     color: "#000",
     textAlign: "left",
-    marginTop: 10
+    marginTop: 10,
+    padding: 5
+  },
+  scanMeterButton: {
+    marginTop: 10,
+    marginBottom: 10
+  },
+  buttonText: {
+    textAlign: "center",
+    margin: 0,
+    fontSize: 20,
+    color: "#fff"
   }
 });

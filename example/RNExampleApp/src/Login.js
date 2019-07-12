@@ -8,7 +8,8 @@ import {
   StatusBar,
   AsyncStorage
 } from "react-native";
-import ServicePointDetails from "./ServicePointDetails";
+// import ServicePointDetails from "./ServicePointDetails";
+import { Actions } from "react-native-router-flux";
 
 const userInfo = { userName: "vybhav", password: "vybhav" };
 
@@ -33,7 +34,8 @@ export default class Login extends Component {
   handleLogin = async () => {
     const { userName, password } = this.state;
     if (userInfo.userName === userName && userInfo.password === password) {
-      alert("LoggedIN");
+      // alert("LoggedIN");
+      Actions.workorders();
       // await AsyncStorage.setItem("isLoggedIn", "1");
       // navigate("LandingPage");
     } else {
