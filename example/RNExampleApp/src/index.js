@@ -33,6 +33,7 @@ import ShipConConfig from "../config/ContainerShipConfig";
 import CattleTagConfig from "../config/CattleTagConfig";
 import GermanIDFrontConfig from "../config/GermanIDFrontConfig";
 import VerticalContainerConfig from "../config/VerticalContainerConfig";
+import Login from "./Login";
 
 // Disable Warnings
 console.disableYellowBox = true;
@@ -240,6 +241,7 @@ class Anyline extends Component {
         style={styles.container}
         contentContainerStyle={styles.ContainerContent}
       >
+        <Login />
         <Text style={styles.headline}>Anyline React-Native Example</Text>
         {hasScanned ? (
           <Result
@@ -277,8 +279,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#303030"
   },
   ContainerContent: {
-    alignItems: "center",
-    justifyContent: "space-around"
+    // alignItems: "center",
+    // justifyContent: "space-around"
   },
   headline: {
     fontSize: 20,
