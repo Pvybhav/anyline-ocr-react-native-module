@@ -32,7 +32,7 @@ export default class Login extends Component {
     const { userName, password } = this.state;
     if (userInfo.userName === userName && userInfo.password === password) {
       // alert("LoggedIN");
-      Actions.workorders();
+      Actions.workOrderSelection();
       // await AsyncStorage.setItem("isLoggedIn", "1");
       // navigate("LandingPage");
     } else {

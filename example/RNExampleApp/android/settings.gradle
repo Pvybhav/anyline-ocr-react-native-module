@@ -1,4 +1,6 @@
 rootProject.name = 'RNExampleApp'
+include ':@react-native-community_async-storage'
+project(':@react-native-community_async-storage').projectDir = new File(rootProject.projectDir, '../node_modules/@react-native-community/async-storage/android')
 include ':react-native-cardview'
 project(':react-native-cardview').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-cardview/android')
 include ':anyline-ocr-react-native-module'

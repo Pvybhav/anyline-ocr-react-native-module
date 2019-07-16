@@ -32,7 +32,13 @@ export default class WorkOrders extends Component {
 
   render() {
     return (
-      <Container>
+      <Container
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "space-between"
+        }}
+      >
         <StatusBar
           backgroundColor={styles.container.backgroundColor}
           barStyle="default"
@@ -48,7 +54,7 @@ export default class WorkOrders extends Component {
         </Header>
         <Content>
           <Button full rounded onPress={() => Actions.workorders()}>
-            <Text>Work Orders</Text>
+            <Text>Meter Reading Orders</Text>
           </Button>
           <Button full rounded>
             <Text>Other Work Orders</Text>

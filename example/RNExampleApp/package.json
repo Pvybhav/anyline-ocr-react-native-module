@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.5.4",
+    "@react-native-community/async-storage": "^1.5.1",
     "anyline-ocr-react-native-module": "^11.0.0",
     "native-base": "^2.12.1",
     "react": "^16.6.3",

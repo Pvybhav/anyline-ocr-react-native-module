@@ -9,6 +9,8 @@ target 'RNExampleApp' do
   pod 'AnylineReact', path: '../node_modules/anyline-ocr-react-native-module/ios'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/Yoga'
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+
 end
 
 post_install do |installer|
