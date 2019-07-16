@@ -1,7 +1,8 @@
 import React from "react";
 import { Router, Scene } from "react-native-router-flux";
-import WorkOrders from "./WorkOrders";
 import Login from "./Login";
+import WorkOrderSelection from "./WorkOrderSelection";
+import WorkOrders from "./WorkOrders";
 import ServicePointDetails from "./ServicePointDetails";
 
 const Routes = () => (
@@ -9,12 +10,17 @@ const Routes = () => (
     <Scene key="root">
       <Scene key="login" component={Login} title="Login" initial={true} />
       <Scene
+        key="workOrderSelection"
+        component={WorkOrderSelection}
+        title="Select Work Order Type"
+      />
+      <Scene
         key="workorders"
         component={WorkOrders}
         title="Work Orders"
         // renderBackButton={() => renderBackButton()}
         // renderBackButton={() => null}
-        renderLeftButton={()=>(null)}
+        renderLeftButton={() => null}
       />
       <Scene
         key="servicepointdetails"

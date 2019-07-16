@@ -23,12 +23,12 @@ export default class ServicePointDetails extends Component {
     return (
       <View style={styles.container}>
         <StatusBar
-          backgroundColor="rgb(51, 214, 102)"
+          backgroundColor={styles.container.backgroundColor}
           barStyle="default"
           animated
-          // hidden
+          hidden={false}
           networkActivityIndicatorVisible={false}
-          // translucent={false}
+          translucent={false}
         />
         <CardView
           cardElevation={5}

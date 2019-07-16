@@ -4,12 +4,27 @@ import {
   Platform,
   View,
   StatusBar,
-  Text,
+  // Text,
   SectionList,
   Alert,
   Dimensions
 } from "react-native";
 import { Actions } from "react-native-router-flux";
+
+import {
+  Container,
+  Header,
+  Left,
+  Content,
+  Body,
+  Right,
+  Button,
+  Card,
+  CardItem,
+  Icon,
+  Title,
+  Text
+} from "native-base";
 
 export default class WorkOrders extends Component {
   constructor(props) {
@@ -117,9 +132,9 @@ export default class WorkOrders extends Component {
       ]
     };
   }
-  // static navigationOptions = {
-  //   header: null
-  // };
+  static navigationOptions = {
+    header: null
+  };
 
   GetSectionListItem = item => {
     //Function for click on an item
@@ -138,49 +153,70 @@ export default class WorkOrders extends Component {
       state: { workOrders }
     } = this;
     return (
-      <View style={styles.container}>
+      <Container>
         <StatusBar
-          backgroundColor="rgb(51, 214, 102)"
+          backgroundColor={styles.container.backgroundColor}
           barStyle="default"
           animated
-          hidden
+          hidden={false}
           networkActivityIndicatorVisible={false}
           translucent={false}
         />
-        <View
-        // style={{ marginTop: Platform.OS == "ios" ? "100%" : "100%" }}
-        >
-          <SectionList
-            ItemSeparatorComponent={this.FlatListItemSeparator}
-            style={{ width: "100%" }}
-            // sections={[{ title: "Work Orders", data: workOrders }]}
-            sections={[{ data: workOrders }]}
-            // renderSectionHeader={({ section }) => (
-            //   <Text style={styles.SectionHeaderStyle}> {section.title} </Text>
-            // )}
-            renderItem={({ item }) => (
-              // Single Comes here which will be repeatative for the FlatListItems
-              <Text
-                style={styles.SectionListItemStyle}
-                //Item Separator View
-                // onPress={this.GetSectionListItem.bind(
-                //   this,
-                //   "Id: " +
-                //     item.SPID +
-                //     " Name: " +
-                //     item.date +
-                //     "Meter Number" +
-                //     item.meterNumber
-                // )}
-                onPress={() => Actions.servicepointdetails({ workOrder: item })}
+        <Header>
+          {/* <Left>
+            <Button transparent>
+              <Icon name="arrow-back" />
+              <Text>Back</Text>
+            </Button>
+          </Left> */}
+          <Body>
+            <Title>Work Orders</Title>
+          </Body>
+          <Right>
+            {/* <Button transparent>
+              <Text>Cancel</Text>
+            </Button> */}
+          </Right>
+        </Header>
+        <Content>
+          {workOrders.map(workOrder => (
+            <Card key={workOrder.SPID}>
+              <CardItem
+                header
+                button
+                onPress={() => Actions.servicepointdetails({ workOrder })}
+                style={styles.cardHeaderStyle}
               >
-                {item.meterNumber}
-              </Text>
-            )}
-            keyExtractor={(item, index) => index}
-          />
-        </View>
-      </View>
+                <Text>{`SPID : ${workOrder.SPID}`}</Text>
+              </CardItem>
+              <CardItem
+                button
+                onPress={() => Actions.servicepointdetails({ workOrder })}
+              >
+                <Body>
+                  <Text>
+                    {` Meter Number : ${workOrder.meterNumber} \n Date : ${
+                      workOrder.date
+                    }`}
+                  </Text>
+                </Body>
+              </CardItem>
+              <CardItem
+                footer
+                button
+                onPress={() => Actions.servicepointdetails({ workOrder })}
+              >
+                <View>
+                  <Text>
+                    Meter Read Status :
+                    <Text style={styles.pendingStatusStyle}>Pending</Text>
+                  </Text>
+                </View>
+              </CardItem>
+            </Card>
+          ))}
+        </Content>
+      </Container>
     );
   }
 }
@@ -207,5 +243,15 @@ const styles = StyleSheet.create({
     padding: 15,
     color: "#000",
     backgroundColor: "#F5F5F5"
+  },
+  cardHeaderStyle: {
+    backgroundColor: "#c1cfe6",
+    height: 10
+  },
+  pendingStatusStyle: {
+    color: "red"
+  },
+  completedStatusStyle: {
+    color: "green"
   }
 });

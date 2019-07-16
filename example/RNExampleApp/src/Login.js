@@ -11,7 +11,7 @@ import {
 // import ServicePointDetails from "./ServicePointDetails";
 import { Actions } from "react-native-router-flux";
 
-const userInfo = { userName: "vybhav", password: "vybhav" };
+const userInfo = { userName: "Smith", password: "smith" };
 
 export default class Login extends Component {
   constructor(props) {
@@ -27,9 +27,6 @@ export default class Login extends Component {
   static navigationOptions = {
     header: null
   };
-  componentWillMount() {
-    console.log(this.props);
-  }
 
   handleLogin = async () => {
     const { userName, password } = this.state;
@@ -51,10 +48,10 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <StatusBar
-          backgroundColor="rgb(51, 214, 102)"
+          backgroundColor={styles.container.backgroundColor}
           barStyle="default"
           animated
-          hidden
+          hidden={false}
           networkActivityIndicatorVisible={false}
           translucent={false}
         />
