@@ -8,6 +8,9 @@ import {
   Alert,
   Dimensions
 } from "react-native";
+// import Icon from "react-native-vector-icons/AntDesign";
+import Icon from "react-native-vector-icons/AntDesign";
+
 import { Actions } from "react-native-router-flux";
 
 import {
@@ -19,6 +22,7 @@ import {
   Right,
   Button,
   Title,
+  Subtitle,
   Text
 } from "native-base";
 
@@ -29,8 +33,12 @@ export default class WorkOrders extends Component {
   static navigationOptions = {
     header: null
   };
-
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("isUserLogin");
+    Actions.login();
+  };
   render() {
+    const { handleLogout } = this;
     return (
       <Container
         style={{
@@ -47,17 +55,39 @@ export default class WorkOrders extends Component {
           networkActivityIndicatorVisible={false}
           translucent={false}
         />
-        <Header>
-          <Body>
-            <Title>Select Work Order Type</Title>
+        <Header noLeft>
+          {/* <Left>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon name="rocket" size={30} color="#900" />
+            </Button>
+          </Left> */}
+          <Body style={{ flex: 1 }}>
+            <Title>
+              <Text style={styles.headerContentStyle}>MOBBILL</Text>
+            </Title>
+            <Subtitle>
+              <Text style={{ color: "white", fontStyle: "italic" }}>
+                Hello, Smith
+              </Text>
+            </Subtitle>
           </Body>
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={handleLogout}>
+              <Icon name="logout" size={30} color="#ffb10a" />
+            </Button>
+          </Right>
         </Header>
-        <Content>
-          <Button full rounded onPress={() => Actions.workorders()}>
-            <Text>Meter Reading Orders</Text>
+        <Content contentContainerStyle={styles.contentContainerStyle}>
+          <Button
+            full
+            rounded
+            onPress={() => Actions.workorders()}
+            style={styles.buttonStyle}
+          >
+            <Text style={styles.buttonTextStyle}>Meter Reading Orders</Text>
           </Button>
-          <Button full rounded>
-            <Text>Other Work Orders</Text>
+          <Button full rounded style={styles.buttonStyle}>
+            <Text style={styles.buttonTextStyle}>Other Work Orders</Text>
           </Button>
         </Content>
       </Container>
@@ -73,29 +103,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#338779"
   },
-  SectionHeaderStyle: {
-    backgroundColor: "#CDDC89",
-    fontSize: 20,
-    padding: 5,
-    color: "#fff"
-  },
-
-  SectionListItemStyle: {
+  contentContainerStyle: {
     flex: 1,
-    fontSize: 15,
-    width: Dimensions.get("window").width,
-    padding: 15,
-    color: "#000",
-    backgroundColor: "#F5F5F5"
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "stretch"
   },
-  cardHeaderStyle: {
-    backgroundColor: "#c1cfe6",
-    height: 10
+  headerContentStyle: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20
   },
-  pendingStatusStyle: {
-    color: "red"
+  buttonStyle: {
+    margin: 10
   },
-  completedStatusStyle: {
-    color: "green"
+  buttonTextStyle: {
+    fontWeight: "bold"
   }
 });

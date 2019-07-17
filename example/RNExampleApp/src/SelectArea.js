@@ -1,5 +1,20 @@
 import React, { Component } from "react";
-import { Container, Header, Content, Icon, Picker, Form } from "native-base";
+import {
+  Container,
+  Header,
+  Content,
+  Icon,
+  Picker,
+  Form,
+  Body,
+  Left,
+  Button,
+  Right,
+  Text,
+  Title,
+  Subtitle
+} from "native-base";
+import Icon from "react-native-vector-icons/AntDesign";
 
 export default class SelectArea extends Component {
   constructor(props) {
@@ -8,14 +23,35 @@ export default class SelectArea extends Component {
       selectedArea: null
     };
   }
-
+  // Actions.workorders()
   render() {
     const {
       state: { selectedArea }
     } = this;
     return (
       <Container>
-        <Header />
+        <Header>
+          <Left>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon name="back" size={30} color="#66cc41" />
+            </Button>
+          </Left>
+          <Body style={{ flex: 1 }}>
+            <Title>
+              <Text style={styles.headerContentStyle}>Work Orders</Text>
+            </Title>
+            <Subtitle>
+              <Text style={{ color: "white", fontStyle: "italic" }}>
+                Hello, Smith
+              </Text>
+            </Subtitle>
+          </Body>
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={handleLogout}>
+              <Icon name="logout" size={30} color="#ffb10a" />
+            </Button>
+          </Right>
+        </Header>
         <Content>
           <Form>
             <Picker

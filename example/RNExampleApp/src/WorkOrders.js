@@ -21,10 +21,13 @@ import {
   Button,
   Card,
   CardItem,
-  Icon,
   Title,
+  Subtitle,
   Text
 } from "native-base";
+import Icon from "react-native-vector-icons/AntDesign";
+
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class WorkOrders extends Component {
   constructor(props) {
@@ -148,34 +151,45 @@ export default class WorkOrders extends Component {
       />
     );
   };
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("isUserLogin");
+    Actions.login();
+  };
   render() {
     const {
+      handleLogout,
       state: { workOrders }
     } = this;
     return (
       <Container>
-        <StatusBar
+        {/* <StatusBar
           backgroundColor={styles.container.backgroundColor}
           barStyle="default"
           animated
           hidden={false}
           networkActivityIndicatorVisible={false}
           translucent={false}
-        />
+        /> */}
         <Header>
-          {/* <Left>
-            <Button transparent>
-              <Icon name="arrow-back" />
-              <Text>Back</Text>
+          <Left>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon name="back" size={30} color="#66cc41" />
             </Button>
-          </Left> */}
-          <Body>
-            <Title>Work Orders</Title>
+          </Left>
+          <Body style={{ flex: 1 }}>
+            <Title>
+              <Text style={styles.headerContentStyle}>Work Orders</Text>
+            </Title>
+            <Subtitle>
+              <Text style={{ color: "white", fontStyle: "italic" }}>
+                Hello, Smith
+              </Text>
+            </Subtitle>
           </Body>
-          <Right>
-            {/* <Button transparent>
-              <Text>Cancel</Text>
-            </Button> */}
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={handleLogout}>
+              <Icon name="logout" size={30} color="#ffb10a" />
+            </Button>
           </Right>
         </Header>
         <Content>
@@ -235,7 +249,11 @@ const styles = StyleSheet.create({
     padding: 5,
     color: "#fff"
   },
-
+  headerContentStyle: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20
+  },
   SectionListItemStyle: {
     flex: 1,
     fontSize: 15,
