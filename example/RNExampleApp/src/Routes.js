@@ -6,6 +6,8 @@ import WorkOrderSelection from "./WorkOrderSelection";
 import WorkOrders from "./WorkOrders";
 import ServicePointDetails from "./ServicePointDetails";
 import LoadingSpinner from "./LoadingSpinner";
+import SelectArea from "./SelectArea";
+import Anyline from ".";
 
 class Routes extends Component {
   state = {
@@ -48,13 +50,6 @@ class Routes extends Component {
             failure={Login}
           />
           <Scene
-            key="workOrderSelection"
-            component={WorkOrderSelection}
-            title="Select Work Order Type"
-            type="replace"
-            initial={this.state.isUserLogin}
-          />
-          <Scene
             key="login"
             component={Login}
             title="Login"
@@ -63,17 +58,33 @@ class Routes extends Component {
             renderBackButton={() => renderBackButton()}
           />
           <Scene
+            key="workOrderSelection"
+            component={WorkOrderSelection}
+            title="Select Work Order Type"
+            type="replace"
+            initial={this.state.isUserLogin}
+          />
+          <Scene
+            key="selectArea"
+            component={SelectArea}
+            title="Select Area"
+            renderLeftButton={() => null}
+          />
+          <Scene
             key="workorders"
             component={WorkOrders}
             title="Work Orders"
-            // renderBackButton={() => renderBackButton()}
-            // renderBackButton={() => null}
             renderLeftButton={() => null}
           />
           <Scene
             key="servicepointdetails"
             component={ServicePointDetails}
             title="Service Point Details"
+          />
+          <Scene
+            key="anyline"
+            component={Anyline}
+            title="Anyline Scan"
           />
         </Scene>
       </Router>

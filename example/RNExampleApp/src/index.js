@@ -241,7 +241,6 @@ export default class Anyline extends Component {
         style={styles.container}
         contentContainerStyle={styles.ContainerContent}
       >
-        <Login />
         <Text style={styles.headline}>Anyline React-Native Example</Text>
         {hasScanned ? (
           <Result

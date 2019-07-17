@@ -12,6 +12,7 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 
 import { Actions } from "react-native-router-flux";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import {
   Container,
@@ -81,7 +82,7 @@ export default class WorkOrders extends Component {
           <Button
             full
             rounded
-            onPress={() => Actions.workorders()}
+            onPress={() => Actions.selectArea()}
             style={styles.buttonStyle}
           >
             <Text style={styles.buttonTextStyle}>Meter Reading Orders</Text>

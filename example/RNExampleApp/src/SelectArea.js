@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import { StyleSheet } from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   Container,
   Header,
   Content,
-  Icon,
   Picker,
   Form,
   Body,
@@ -12,9 +13,12 @@ import {
   Right,
   Text,
   Title,
-  Subtitle
+  Subtitle,
+  Icon as NativeBaseIcon,
+  Separator
 } from "native-base";
 import Icon from "react-native-vector-icons/AntDesign";
+import { Actions } from "react-native-router-flux";
 
 export default class SelectArea extends Component {
   constructor(props) {
@@ -23,9 +27,16 @@ export default class SelectArea extends Component {
       selectedArea: null
     };
   }
-  // Actions.workorders()
+  static navigationOptions = {
+    header: null
+  };
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("isUserLogin");
+    Actions.login();
+  };
   render() {
     const {
+      handleLogout,
       state: { selectedArea }
     } = this;
     return (
@@ -38,7 +49,7 @@ export default class SelectArea extends Component {
           </Left>
           <Body style={{ flex: 1 }}>
             <Title>
-              <Text style={styles.headerContentStyle}>Work Orders</Text>
+              <Text style={styles.headerContentStyle}>Select Area</Text>
             </Title>
             <Subtitle>
               <Text style={{ color: "white", fontStyle: "italic" }}>
@@ -52,11 +63,23 @@ export default class SelectArea extends Component {
             </Button>
           </Right>
         </Header>
-        <Content>
+        <Content
+        // contentContainerStyle={{
+        // flex: 1,
+        // flexDirection: "column",
+        //   justifyContent: "center",
+        //   alignItems: "stretch"
+        // }}
+        >
+          <Separator bordered style={{ height: 50 }}>
+            <Text style={{ fontSize: 15, color: "black", fontWeight: "bold" }}>
+              Select Area
+            </Text>
+          </Separator>
           <Form>
             <Picker
               mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
+              iosIcon={<NativeBaseIcon name="arrow-down" />}
               headerStyle={{ backgroundColor: "#b95dd3" }}
               headerBackButtonTextStyle={{ color: "#fff" }}
               headerTitleStyle={{ color: "#fff" }}
@@ -70,8 +93,24 @@ export default class SelectArea extends Component {
               <Picker.Item label="Al KhuwairSouth" value="Al_KhuwairSouth" />
             </Picker>
           </Form>
+          <Button full rounded onPress={() => Actions.workorders()}>
+            <Text style={styles.loginTextStyle}>Submit</Text>
+          </Button>
         </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  headerContentStyle: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20
+  },
+  submitTextStyle: {
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold"
+  }
+});
