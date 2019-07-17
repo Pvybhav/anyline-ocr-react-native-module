@@ -20,6 +20,7 @@ import {
   Subtitle,
   Right
 } from "native-base";
+import AnylineBarcodeScanner from "./AnylineBarcodeScanner";
 
 export default class ServicePointDetails extends Component {
   constructor(props) {
@@ -97,9 +98,7 @@ export default class ServicePointDetails extends Component {
               </Body>
             </CardItem>
           </Card>
-          <Button full rounded onPress={() => Actions.anyline()}>
-            <Text style={styles.scanMeterTextStyle}>Scan Meter</Text>
-          </Button>
+          <AnylineBarcodeScanner style={{ height: "20%" }} />
         </Content>
       </Container>
     );

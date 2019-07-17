@@ -7,7 +7,7 @@ import WorkOrders from "./WorkOrders";
 import ServicePointDetails from "./ServicePointDetails";
 import LoadingSpinner from "./LoadingSpinner";
 import SelectArea from "./SelectArea";
-import Anyline from ".";
+import BarcodeResult from "./BarcodeResult";
 
 class Routes extends Component {
   state = {
@@ -82,9 +82,9 @@ class Routes extends Component {
             title="Service Point Details"
           />
           <Scene
-            key="anyline"
-            component={Anyline}
-            title="Anyline Scan"
+            key="barcodeResult"
+            component={BarcodeResult}
+            title="Barcode Result"
           />
         </Scene>
       </Router>

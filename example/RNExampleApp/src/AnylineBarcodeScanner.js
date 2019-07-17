@@ -12,7 +12,7 @@ import {
 import AnylineOCR from "anyline-ocr-react-native-module";
 
 import Result from "./Result";
-import Overview from "./Overview";
+import AnylineBarcodeOptions from "./AnylineBarcodeOptions";
 
 import BarcodeConfig from "../config/BarcodeConfig";
 import BarcodePDF417Config from "../config/Barcode_PDF417Config";
@@ -35,10 +35,12 @@ import GermanIDFrontConfig from "../config/GermanIDFrontConfig";
 import VerticalContainerConfig from "../config/VerticalContainerConfig";
 import Login from "./Login";
 
+import { Actions } from "react-native-router-flux";
+
 // Disable Warnings
 console.disableYellowBox = true;
 
-export default class Anyline extends Component {
+export default class AnylineBarcodeScanner extends Component {
   state = {
     hasScanned: false,
     result: "",
@@ -68,69 +70,14 @@ export default class Anyline extends Component {
       case "AUTO_ANALOG_DIGITAL_METER":
         config = AutoEnergyConfig;
         break;
-      case "DIAL_METER":
-        config = DialEnergyConfig;
-        break;
-      case "SERIAL_NUMBER":
-        config = SerialNumberConfig;
-        break;
-      case "DOT_MATRIX_METER":
-        config = AutoEnergyConfig;
-        break;
       case "BARCODE":
         config = BarcodeConfig;
-        break;
-      case "BARCODE_PDF417":
-        config = BarcodePDF417Config;
-        break;
-      case "IBAN":
-        type = "ANYLINE_OCR";
-        config = IBANConfig;
-        break;
-      case "VOUCHER":
-        type = "ANYLINE_OCR";
-        config = VoucherConfig;
-        break;
-      case "DRIVING_LICENSE":
-        type = "ANYLINE_OCR";
-        config = DrivingLicenseConfig;
-        break;
-      case "VIN":
-        type = "ANYLINE_OCR";
-        config = VinConfig;
-        break;
-      case "USNR":
-        type = "ANYLINE_OCR";
-        config = USNRConfig;
-        break;
-      case "SHIPPING_CONTAINER":
-        type = "ANYLINE_OCR";
-        config = ShipConConfig;
-        break;
-      case "CATTLE_TAG":
-        type = "ANYLINE_OCR";
-        config = CattleTagConfig;
-        break;
-      case "MRZ":
-        config = MRZConfig;
-        break;
-      case "GERMAN_ID_FRONT":
-        config = GermanIDFrontConfig;
-        break;
-      case "LICENSE_PLATE":
-        config = LicensePlateConfig;
-        break;
-      case "DOCUMENT":
-        config = DocumentConfig;
         break;
       case "ANALOG_METER":
         config = AnalogEnergyConfig;
         break;
       case "DIGITAL_METER":
         config = DigitalEnergyConfig;
-        break;
-      case "VERTICAL_CONTAINER":
-        config = VerticalContainerConfig;
         break;
     }
 
@@ -244,25 +191,33 @@ export default class Anyline extends Component {
       >
         <Text style={styles.headline}>Anyline React-Native Example</Text>
         {hasScanned ? (
-          <Result
-            key="ResultView"
-            currentScanMode={currentScanMode}
-            result={result}
-            imagePath={imagePath}
-            fullImagePath={fullImagePath}
-            data={result}
-            emptyResult={this.emptyResult}
-          />
+          Actions.barcodeResult({
+            currentScanMode,
+            result,
+            imagePath,
+            fullImagePath,
+            data: result,
+            emptyResult: this.emptyResult
+          })
         ) : (
-          <Overview
-            key="OverView"
+          // <Result
+          //   key="ResultView"
+          //   currentScanMode={currentScanMode}
+          //   result={result}
+          //   imagePath={imagePath}
+          //   fullImagePath={fullImagePath}
+          //   data={result}
+          //   emptyResult={this.emptyResult}
+          // />
+          <AnylineBarcodeOptions
+            key="AnylineBarcodeOptions"
             openAnyline={this.openAnyline}
             checkCameraPermissionAndOpen={this.checkCameraPermissionAndOpen}
             disabled={buttonsDisabled}
           />
         )}
-        <Text style={styles.versions}>SDK Version: {SDKVersion}</Text>
-        <Text style={styles.versions}>RN-Build Number: 1</Text>
+        {/* <Text style={styles.versions}>SDK Version: {SDKVersion}</Text>
+        <Text style={styles.versions}>RN-Build Number: 1</Text> */}
       </ScrollView>
     );
   }

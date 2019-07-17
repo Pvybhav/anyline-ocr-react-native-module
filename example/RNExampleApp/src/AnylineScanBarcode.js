@@ -12,7 +12,7 @@ import {
 import AnylineOCR from "anyline-ocr-react-native-module";
 
 import Result from "./Result";
-import Overview from "./Overview";
+import AnylineButton from "./AnylineButton";
 
 import BarcodeConfig from "../config/BarcodeConfig";
 import BarcodePDF417Config from "../config/Barcode_PDF417Config";
@@ -38,7 +38,7 @@ import Login from "./Login";
 // Disable Warnings
 console.disableYellowBox = true;
 
-export default class Anyline extends Component {
+export default class AnylineScanBarcode extends Component {
   state = {
     hasScanned: false,
     result: "",
@@ -57,7 +57,7 @@ export default class Anyline extends Component {
     LayoutAnimation.easeInEaseOut();
   }
 
-  openAnyline = async type => {
+  openAnyline = async (type = "BARCODE") => {
     this.setState({ buttonsDisabled: true });
     let config;
 
@@ -196,7 +196,6 @@ export default class Anyline extends Component {
   };
 
   checkCameraPermissionAndOpen = type => {
-    alert("checking permission");
     this.hasCameraPermission().then(hasCameraPermission => {
       console.log("hasCameraPermission result is " + hasCameraPermission);
       if (hasCameraPermission) {
@@ -254,13 +253,15 @@ export default class Anyline extends Component {
             emptyResult={this.emptyResult}
           />
         ) : (
-          <Overview
-            key="OverView"
+          <AnylineButton
+            key="AnylineButton"
             openAnyline={this.openAnyline}
             checkCameraPermissionAndOpen={this.checkCameraPermissionAndOpen}
             disabled={buttonsDisabled}
           />
-        )}
+        )
+        // this.openAnyline
+        }
         <Text style={styles.versions}>SDK Version: {SDKVersion}</Text>
         <Text style={styles.versions}>RN-Build Number: 1</Text>
       </ScrollView>
