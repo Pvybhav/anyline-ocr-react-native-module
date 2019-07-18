@@ -9,10 +9,13 @@ target 'RNExampleApp' do
   pod 'AnylineReact', path: '../node_modules/anyline-ocr-react-native-module/ios'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/Yoga'
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+<<<<<<< HEAD
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+=======
+>>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
 end
 
 post_install do |installer|

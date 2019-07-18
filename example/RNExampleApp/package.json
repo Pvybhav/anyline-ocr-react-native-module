@@ -11,6 +11,7 @@
     "bundleiOS": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@babel/core": "^7.5.4",
     "@react-native-community/async-storage": "^1.5.1",
     "anyline-ocr-react-native-module": "^11.0.0",
@@ -23,6 +24,13 @@
   },
   "devDependencies": {
     "@babel/runtime": "^7.5.4",
+=======
+    "anyline-ocr-react-native-module": "../../plugin",
+    "react": "^16.6.3",
+    "react-native": "^0.58.5"
+  },
+  "devDependencies": {
+>>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
     "babel-core": "^7.0.0-bridge",
     "babel-jest": "^24.1.0",
     "babel-preset-react-native": "^5.0.1",
