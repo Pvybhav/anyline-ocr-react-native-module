@@ -6,20 +6,14 @@ import {
   PermissionsAndroid,
   ScrollView,
   StyleSheet,
-<<<<<<< HEAD
   Text
 } from "react-native";
-=======
-  Text,
-} from 'react-native';
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
 
 import AnylineOCR from "anyline-ocr-react-native-module";
 
 import Result from "./Result";
 import Overview from "./Overview";
 
-<<<<<<< HEAD
 import BarcodeConfig from "../config/BarcodeConfig";
 import BarcodePDF417Config from "../config/Barcode_PDF417Config";
 import DocumentConfig from "../config/DocumentConfig";
@@ -42,29 +36,6 @@ import VerticalContainerConfig from "../config/VerticalContainerConfig";
 import Login from "./Login";
 
 // Disable Warnings
-=======
-import BarcodeConfig from '../config/BarcodeConfig';
-import BarcodePDF417Config from '../config/Barcode_PDF417Config';
-import DocumentConfig from '../config/DocumentConfig';
-import MRZConfig from '../config/MRZConfig';
-import AutoEnergyConfig from '../config/AutoEnergyConfig';
-import AnalogEnergyConfig from '../config/AnalogMeterConfig';
-import DigitalEnergyConfig from '../config/DigitalMeterConfig';
-import DialEnergyConfig from '../config/DialMeterConfig';
-import IBANConfig from '../config/IbanConfig';
-import VoucherConfig from '../config/VoucherConfig';
-import DrivingLicenseConfig from '../config/DrivingLicenseConfig';
-import LicensePlateConfig from '../config/LicensePlateConfig';
-import SerialNumberConfig from '../config/SerialNumber';
-import VinConfig from '../config/VINConfig';
-import USNRConfig from "../config/USNRConfig";
-import ShipConConfig from "../config/ContainerShipConfig";
-import CattleTagConfig from "../config/CattleTagConfig";
-import GermanIDFrontConfig from '../config/GermanIDFrontConfig';
-import VerticalContainerConfig from '../config/VerticalContainerConfig';
-
-// Disable Warnings 
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
 console.disableYellowBox = true;
 
 export default class Anyline extends Component {
@@ -75,15 +46,11 @@ export default class Anyline extends Component {
     fullImagePath: "",
     currentScanMode: "",
     buttonsDisabled: false,
-<<<<<<< HEAD
     SDKVersion: ""
   };
   componentDidMount = async () => {
     const SDKVersion = await AnylineOCR.getSDKVersion();
     this.setState({ SDKVersion: SDKVersion });
-=======
-    SDKVersion: '',
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
   };
   componentDidMount = async () => {
     const SDKVersion = await AnylineOCR.getSDKVersion();
@@ -105,17 +72,10 @@ export default class Anyline extends Component {
       case "AUTO_ANALOG_DIGITAL_METER":
         config = AutoEnergyConfig;
         break;
-<<<<<<< HEAD
       case "DIAL_METER":
         config = DialEnergyConfig;
         break;
       case "SERIAL_NUMBER":
-=======
-      case 'DIAL_METER':
-        config = DialEnergyConfig;
-        break;
-      case 'SERIAL_NUMBER':
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
         config = SerialNumberConfig;
         break;
       case "DOT_MATRIX_METER":
@@ -124,26 +84,17 @@ export default class Anyline extends Component {
       case "BARCODE":
         config = BarcodeConfig;
         break;
-<<<<<<< HEAD
       case "BARCODE_PDF417":
         config = BarcodePDF417Config;
         break;
       case "IBAN":
         type = "ANYLINE_OCR";
-=======
-      case 'BARCODE_PDF417':
-        config = BarcodePDF417Config;
-        break;
-      case 'IBAN':
-        type = 'ANYLINE_OCR';
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
         config = IBANConfig;
         break;
       case "VOUCHER":
         type = "ANYLINE_OCR";
         config = VoucherConfig;
         break;
-<<<<<<< HEAD
       case "DRIVING_LICENSE":
         type = "ANYLINE_OCR";
         config = DrivingLicenseConfig;
@@ -171,41 +122,11 @@ export default class Anyline extends Component {
         config = GermanIDFrontConfig;
         break;
       case "LICENSE_PLATE":
-=======
-      case 'DRIVING_LICENSE':
-        type = 'ANYLINE_OCR';
-        config = DrivingLicenseConfig;
-        break;
-      case 'VIN':
-        type = 'ANYLINE_OCR';
-        config = VinConfig;
-        break;
-      case 'USNR':
-        type = 'ANYLINE_OCR';
-        config = USNRConfig;
-        break;
-      case 'SHIPPING_CONTAINER':
-        type = 'ANYLINE_OCR';
-        config = ShipConConfig;
-        break;
-      case 'CATTLE_TAG':
-        type = 'ANYLINE_OCR';
-        config = CattleTagConfig;
-        break;
-      case 'MRZ':
-        config = MRZConfig;
-        break;
-      case 'GERMAN_ID_FRONT':
-        config = GermanIDFrontConfig;
-        break;
-      case 'LICENSE_PLATE':
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
         config = LicensePlateConfig;
         break;
       case "DOCUMENT":
         config = DocumentConfig;
         break;
-<<<<<<< HEAD
       case "ANALOG_METER":
         config = AnalogEnergyConfig;
         break;
@@ -213,28 +134,15 @@ export default class Anyline extends Component {
         config = DigitalEnergyConfig;
         break;
       case "VERTICAL_CONTAINER":
-=======
-      case 'ANALOG_METER':
-        config = AnalogEnergyConfig;
-        break;
-      case 'DIGITAL_METER':
-        config = DigitalEnergyConfig;
-        break;
-      case 'VERTICAL_CONTAINER':
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
         config = VerticalContainerConfig;
         break;
     }
 
     try {
-<<<<<<< HEAD
       const result = await AnylineOCR.setupPromise(
         JSON.stringify(config),
         "scan"
       );
-=======
-      const result = await AnylineOCR.setupPromise(JSON.stringify(config), 'scan');
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
 
       console.log(result);
       this.setState({ buttonsDisabled: false });
@@ -324,11 +232,7 @@ export default class Anyline extends Component {
       SDKVersion
     } = this.state;
 
-<<<<<<< HEAD
     BackHandler.addEventListener("hardwareBackPress", () => {
-=======
-    BackHandler.addEventListener('hardwareBackPress', () => {
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
       if (hasScanned) {
         this.emptyResult();
         return true;
@@ -353,7 +257,6 @@ export default class Anyline extends Component {
             data={result}
             emptyResult={this.emptyResult}
           />
-<<<<<<< HEAD
         ) : (
           <Overview
             key="OverView"
@@ -362,11 +265,6 @@ export default class Anyline extends Component {
             disabled={buttonsDisabled}
           />
         )}
-=======
-        ) : <Overview key="OverView" openAnyline={this.openAnyline}
-                      checkCameraPermissionAndOpen={this.checkCameraPermissionAndOpen}
-                      disabled={buttonsDisabled}/>}
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
         <Text style={styles.versions}>SDK Version: {SDKVersion}</Text>
         <Text style={styles.versions}>RN-Build Number: 1</Text>
       </ScrollView>

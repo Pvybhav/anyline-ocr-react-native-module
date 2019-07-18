@@ -27,12 +27,9 @@ public class MainApplication extends Application implements ReactApplication {
         protected List<ReactPackage> getPackages() {
             return Arrays.<ReactPackage>asList(
                     new MainReactPackage(),
-<<<<<<< HEAD
             new VectorIconsPackage(),
             new AsyncStoragePackage(),
             new RNCardViewPackage(),
-=======
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
                     new AnylinePackage()
             );
         }

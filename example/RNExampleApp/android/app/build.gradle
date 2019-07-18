@@ -137,12 +137,9 @@ android {
 }
 
 dependencies {
-<<<<<<< HEAD
     implementation project(':react-native-vector-icons')
     implementation project(':@react-native-community_async-storage')
     implementation project(':react-native-cardview')
-=======
->>>>>>> ed5917714ec20fdb422ea2bcc130f40b6dab51cf
     implementation project(':anyline-ocr-react-native-module')
     implementation project(':anyline-ocr-react-native-module')
     implementation fileTree(dir: "libs", include: ["*.jar"])
