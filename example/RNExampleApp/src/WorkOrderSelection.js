@@ -8,9 +8,7 @@ import {
   Alert,
   Dimensions
 } from "react-native";
-// import Icon from "react-native-vector-icons/AntDesign";
 import Icon from "react-native-vector-icons/AntDesign";
-
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
 

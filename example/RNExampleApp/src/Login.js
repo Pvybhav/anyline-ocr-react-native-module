@@ -1,13 +1,5 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  StatusBar
-} from "react-native";
-// import ServicePointDetails from "./ServicePointDetails";
+import { StyleSheet, Text, StatusBar } from "react-native";
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
 
@@ -51,7 +43,6 @@ export default class Login extends Component {
       Actions.workOrderSelection();
     } else {
       alert("Please enter valid credentials");
-      // await AsyncStorage.removeItem("isUserLogin");
     }
   };
 
@@ -61,43 +52,6 @@ export default class Login extends Component {
       state: { userName, password, isLoggedIn }
     } = this;
     return (
-      // <View style={styles.container}>
-      //   <StatusBar
-      //     backgroundColor={styles.container.backgroundColor}
-      //     barStyle="default"
-      //     animated
-      //     hidden={false}
-      //     networkActivityIndicatorVisible={false}
-      //     translucent={false}
-      //   />
-      //   <Text style={styles.welcome}>Welcome!</Text>
-      //   <TextInput
-      //     style={styles.input}
-      //     placeholder="Enter user name"
-      //     value={userName}
-      //     onChangeText={userName => this.setState({ userName })}
-      //     autoCapitalize="none"
-      //   />
-      //   <TextInput
-      //     style={styles.input}
-      //     placeholder="Enter password"
-      //     value={password}
-      //     onChangeText={password => this.setState({ password })}
-      //     secureTextEntry
-      //   />
-      //   <View>
-      //     <TouchableOpacity
-      //       style={{
-      //         textAlign: "center",
-      //         backgroundColor: "rgb(24, 68, 38)",
-      //         padding: 10
-      //       }}
-      //       onPress={handleLogin}
-      //     >
-      //       <Text style={styles.buttonText}>Login</Text>
-      //     </TouchableOpacity>
-      //   </View>
-      // </View>
       <Container>
         <StatusBar
           backgroundColor={styles.container.backgroundColor}
@@ -158,12 +112,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#338779"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    color: "#fff"
-  },
   input: {
     width: "90%",
     backgroundColor: "#d6e6ff",
@@ -174,25 +122,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 20
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "90%"
-  },
-  buttonText: {
-    textAlign: "center",
-    margin: 0,
-    fontSize: 20,
-    color: "#fff"
-  },
-  button: {
-    backgroundColor: "#275aab",
-    padding: 10,
-    width: "45%"
-  },
-  labelTextStyle: {
-    fontWeight: "bold"
   },
   loginTextStyle: {
     fontSize: 20,

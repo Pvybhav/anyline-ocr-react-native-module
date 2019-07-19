@@ -1,23 +1,13 @@
 import React, { Component } from "react";
-import {
-  StatusBar,
-  Image,
-  ScrollView,
-  StyleSheet,
-  View,
-  Dimensions
-} from "react-native";
-// import { flattenObject } from "./utils/utils";
+import { StatusBar, Image, StyleSheet, View, Dimensions } from "react-native";
 import AnylineMeterReadScanner from "./AnylineMeterReadScanner";
-
+import { Actions } from "react-native-router-flux";
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   Container,
   Header,
   Content,
   Text,
-  Footer,
-  FooterTab,
-  Button,
   Left,
   Body,
   Title,
@@ -26,24 +16,16 @@ import {
   Label,
   Item,
   Input,
-  Icon
+  Button,
+  Subtitle
 } from "native-base";
-import { Actions } from "react-native-router-flux";
+import Icon from "react-native-vector-icons/AntDesign";
 
 export default class BarcodeResult extends Component {
   state = { accountNumber: "", loaded: false };
   static navigationOptions = {
     header: null
   };
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (
-  //     nextProps.result.value !== this.state.accountNumber &&
-  //     this.state.loaded === false
-  //   ) {
-  //     this.setState({ accountNumber, loaded: true });
-  //   }
-  // }
   static getDerivedStateFromProps(props, state) {
     const {
       result,
@@ -68,21 +50,17 @@ export default class BarcodeResult extends Component {
     }
     return null;
   }
-
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("isUserLogin");
+    Actions.login();
+  };
   render() {
-    let {
-      result,
-      imagePath,
-      fullImagePath,
-      emptyResult,
-      currentScanMode,
-      SPID
-    } = this.props;
     const {
-      state: { accountNumber }
+      handleLogout,
+      state: { accountNumber },
+      props: { imagePath, fullImagePath, SPID }
     } = this;
     let fullImage = <View />;
-    let fullImageText = <View />;
     if (fullImagePath && fullImagePath != "") {
       fullImage = (
         <Image
@@ -104,13 +82,26 @@ export default class BarcodeResult extends Component {
           translucent={false}
         />
         <Header>
-          <Left />
-          <Body>
+          <Left>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon name="back" size={30} color="#66cc41" />
+            </Button>
+          </Left>
+          <Body style={{ flex: 1 }}>
             <Title>
-              <Text style={styles.headerContentStyle}>MOBBILL</Text>
+              <Text style={styles.headerContentStyle}>Barcode Result</Text>
             </Title>
+            <Subtitle>
+              <Text style={{ color: "white", fontStyle: "italic" }}>
+                Hello, Smith
+              </Text>
+            </Subtitle>
           </Body>
-          <Right />
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={handleLogout}>
+              <Icon name="logout" size={30} color="#ffb10a" />
+            </Button>
+          </Right>
         </Header>
         <Content>
           <Text>Full Image:</Text>
@@ -121,7 +112,16 @@ export default class BarcodeResult extends Component {
             resizeMode={"contain"}
             source={{ uri: `file://${imagePath}` }}
           />
-          <Text>{`SPID ${SPID}`}</Text>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Text>{`SPID ${SPID}`}</Text>
+          </View>
           <Form>
             <Item floatingLabel {...(isNaN(accountNumber) ? "error" : null)}>
               <Label>Account Number</Label>
@@ -129,6 +129,7 @@ export default class BarcodeResult extends Component {
                 placeholder="Enter Account Number"
                 value={accountNumber}
                 onChangeText={accountNumber => this.setState({ accountNumber })}
+                autoFocus
               />
               {isNaN(accountNumber) && (
                 <Icon name="close-circle" style={{ color: "red" }} />
@@ -143,13 +144,6 @@ export default class BarcodeResult extends Component {
             />
           )}
         </Content>
-        {/* <Footer>
-          <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
-            </Button>
-          </FooterTab>
-        </Footer> */}
       </Container>
     );
   }
@@ -177,11 +171,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     justifyContent: "center"
   },
-  // text: {
-  //   color: "white",
-  //   justifyContent: "space-around",
-  //   marginTop: 5
-  // },
   scrollContainer: {
     display: "flex",
     alignItems: "center",
@@ -193,5 +182,10 @@ const styles = StyleSheet.create({
   },
   buttonTextStyle: {
     fontWeight: "bold"
+  },
+  headerContentStyle: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20
   }
 });

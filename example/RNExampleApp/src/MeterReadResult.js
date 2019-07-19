@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  View,
-  Dimensions,
-  StatusBar
-} from "react-native";
+import { Image, StyleSheet, View, Dimensions, StatusBar } from "react-native";
+import { Actions } from "react-native-router-flux";
+import AsyncStorage from "@react-native-community/async-storage";
 import {
   Container,
   Header,
@@ -23,9 +18,9 @@ import {
   Item,
   Label,
   Input,
-  Icon
+  Subtitle
 } from "native-base";
-import { Actions } from "react-native-router-flux";
+import Icon from "react-native-vector-icons/AntDesign";
 
 export default class MeterReadResult extends Component {
   state = { reading: "", loaded: false };
@@ -57,18 +52,16 @@ export default class MeterReadResult extends Component {
   handleSubmit = () => {
     Actions.acknowledgement();
   };
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("isUserLogin");
+    Actions.login();
+  };
   render() {
     const {
       handleSubmit,
+      handleLogout,
       state: { reading },
-      props: {
-        imagePath,
-        fullImagePath,
-        // emptyResult,
-        // currentScanMode,
-        SPID,
-        accountNumber
-      }
+      props: { imagePath, fullImagePath, SPID, accountNumber }
     } = this;
     let fullImage = <View />;
     if (fullImagePath && fullImagePath != "") {
@@ -92,13 +85,26 @@ export default class MeterReadResult extends Component {
           translucent={false}
         />
         <Header>
-          <Left />
-          <Body>
+          <Left>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon name="back" size={30} color="#66cc41" />
+            </Button>
+          </Left>
+          <Body style={{ flex: 1 }}>
             <Title>
-              <Text style={styles.headerContentStyle}>MOBBILL</Text>
+              <Text style={styles.headerContentStyle}>Meter Read Result</Text>
             </Title>
+            <Subtitle>
+              <Text style={{ color: "white", fontStyle: "italic" }}>
+                Hello, Smith
+              </Text>
+            </Subtitle>
           </Body>
-          <Right />
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={handleLogout}>
+              <Icon name="logout" size={30} color="#ffb10a" />
+            </Button>
+          </Right>
         </Header>
         <Content>
           <Text>Full Image:</Text>
@@ -109,8 +115,17 @@ export default class MeterReadResult extends Component {
             resizeMode={"contain"}
             source={{ uri: `file://${imagePath}` }}
           />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
           <Text>{`SPID ${SPID}`}</Text>
           <Text>{`Account Number ${accountNumber}`}</Text>
+          </View>
           <Form>
             <Item floatingLabel {...(isNaN(reading) ? "error" : null)}>
               <Label>Meter Reading</Label>
@@ -118,6 +133,7 @@ export default class MeterReadResult extends Component {
                 placeholder="Enter Meter Reading"
                 value={reading}
                 onChangeText={reading => this.setState({ reading })}
+                autoFocus
               />
               {isNaN(reading) && (
                 <Icon name="close-circle" style={{ color: "red" }} />
@@ -151,6 +167,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#303030",
     marginBottom: 50,
     marginTop: 50
+  },
+  headerContentStyle: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20
   },
   headline: {
     fontWeight: "bold",

@@ -1,33 +1,21 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  StatusBar
-} from "react-native";
-// import ServicePointDetails from "./ServicePointDetails";
+import { StyleSheet, Text, StatusBar } from "react-native";
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
-
-const userInfo = { userName: "smith", password: "smith" };
 import {
   Container,
   Header,
   Content,
-  Form,
-  Item,
-  Input,
-  Label,
   Button,
   Left,
   Body,
   Title,
-  Right
+  Right,
+  Subtitle
 } from "native-base";
+import Icon from "react-native-vector-icons/AntDesign";
 
-export default class Login extends Component {
+export default class Acknowledgement extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -35,9 +23,13 @@ export default class Login extends Component {
   static navigationOptions = {
     header: null
   };
-
+  handleLogout = async () => {
+    await AsyncStorage.removeItem("isUserLogin");
+    Actions.login();
+  };
   render() {
     const {
+      handleLogout,
       state: {}
     } = this;
     return (
@@ -51,32 +43,48 @@ export default class Login extends Component {
           translucent={false}
         />
         <Header>
-          <Left />
-          <Body>
+          <Left>
+            <Button transparent onPress={() => Actions.pop()}>
+              <Icon name="back" size={30} color="#66cc41" />
+            </Button>
+          </Left>
+          <Body style={{ flex: 1 }}>
             <Title>
-              <Text style={styles.headerContentStyle}>MOBBILL</Text>
+              <Text style={styles.headerContentStyle}>Barcode Result</Text>
             </Title>
+            <Subtitle>
+              <Text style={{ color: "white", fontStyle: "italic" }}>
+                Hello, Smith
+              </Text>
+            </Subtitle>
           </Body>
-          <Right />
+          <Right style={{ flex: 1 }}>
+            <Button transparent onPress={handleLogout}>
+              <Icon name="logout" size={30} color="#ffb10a" />
+            </Button>
+          </Right>
         </Header>
         <Content
           contentContainerStyle={{
             flex: 1,
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "stretch"
+            alignItems: "center"
           }}
         >
-          <Text>
-            SUCCESS!!! Meter reading captured successfully. Acknowledgement ID:
-            11223312
+          <Text style={styles.successTextStyle}>SUCCESS!!!</Text>
+          <Text style={{ justifyContent: "center" }}>
+            Meter reading captured successfully.
+          </Text>
+          <Text style={{ justifyContent: "center" }}>
+            Acknowledgement ID: 11223312
           </Text>
           <Button
             full
             rounded
-            //   onPress={handleLogin}
+            // onPress={() => Actions.summary()}
           >
-            <Text style={styles.loginTextStyle}>OK</Text>
+            <Text style={styles.okButtonStyle}>OK</Text>
           </Button>
         </Content>
       </Container>
@@ -91,45 +99,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#338779"
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-    color: "#fff"
-  },
-  input: {
-    width: "90%",
-    backgroundColor: "#d6e6ff",
-    padding: 15,
-    marginBottom: 10
-  },
   headerContentStyle: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "90%"
-  },
-  buttonText: {
-    textAlign: "center",
-    margin: 0,
-    fontSize: 20,
-    color: "#fff"
-  },
-  button: {
-    backgroundColor: "#275aab",
-    padding: 10,
-    width: "45%"
-  },
-  labelTextStyle: {
-    fontWeight: "bold"
-  },
-  loginTextStyle: {
+  okButtonStyle: {
     fontSize: 20,
     color: "white",
     fontWeight: "bold"
+  },
+  successTextStyle: {
+    fontSize: 25,
+    color: "green",
+    fontWeight: "bold",
+    justifyContent: "center"
   }
 });
