@@ -2,7 +2,7 @@ import React from "react";
 import { Platform, StyleSheet } from "react-native";
 import { Button, Text, Container } from "native-base";
 
-export default function AnylineBarcodeOptions({
+export default function AnylineMeterReadOptions({
   openAnyline,
   checkCameraPermissionAndOpen,
   disabled
@@ -14,10 +14,10 @@ export default function AnylineBarcodeOptions({
     <Button
       full
       rounded
-      onPress={() => platformPermissionCheck("BARCODE")}
+      onPress={() => platformPermissionCheck("DIGITAL_METER")}
       disabled={disabled}
     >
-      <Text style={styles.scanMeterTextStyle}>Scan Barcode</Text>
+      <Text style={styles.scanMeterTextStyle}>Scan Meter</Text>
     </Button>
   );
 }

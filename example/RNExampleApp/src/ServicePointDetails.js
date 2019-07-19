@@ -98,7 +98,7 @@ export default class ServicePointDetails extends Component {
               </Body>
             </CardItem>
           </Card>
-          <AnylineBarcodeScanner style={{ height: "20%" }} />
+          <AnylineBarcodeScanner style={{ flex: 0.2, height: "20%" }} SPID={SPID}/>
         </Content>
       </Container>
     );

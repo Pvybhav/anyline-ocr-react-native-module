@@ -8,6 +8,8 @@ import ServicePointDetails from "./ServicePointDetails";
 import LoadingSpinner from "./LoadingSpinner";
 import SelectArea from "./SelectArea";
 import BarcodeResult from "./BarcodeResult";
+import MeterReadResult from "./MeterReadResult";
+import Acknowledgement from "./Acknowledgement";
 
 class Routes extends Component {
   state = {
@@ -85,6 +87,16 @@ class Routes extends Component {
             key="barcodeResult"
             component={BarcodeResult}
             title="Barcode Result"
+          />
+          <Scene
+            key="meterReadResult"
+            component={MeterReadResult}
+            title="Meter Read Result"
+          />
+          <Scene
+            key="acknowledgement"
+            component={Acknowledgement}
+            title="Acknowledgement"
           />
         </Scene>
       </Router>

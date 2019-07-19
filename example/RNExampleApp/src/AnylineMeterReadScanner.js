@@ -9,17 +9,21 @@ import {
   StyleSheet,
   Text
 } from "react-native";
-import { Actions } from "react-native-router-flux";
+
 import AnylineOCR from "anyline-ocr-react-native-module";
 
-import BarcodeResult from "./BarcodeResult";
-import AnylineBarcodeOptions from "./AnylineBarcodeOptions";
-import BarcodeConfig from "../config/BarcodeConfig";
+import MeterReadResult from "./MeterReadResult";
+import AnylineMeterReadOptions from "./AnylineMeterReadOptions";
+
+import AnalogEnergyConfig from "../config/AnalogMeterConfig";
+import DigitalEnergyConfig from "../config/DigitalMeterConfig";
+
+import { Actions } from "react-native-router-flux";
 
 // Disable Warnings
 console.disableYellowBox = true;
 
-export default class AnylineBarcodeScanner extends Component {
+export default class AnylineMeterReadScanner extends Component {
   state = {
     hasScanned: false,
     result: "",
@@ -38,9 +42,21 @@ export default class AnylineBarcodeScanner extends Component {
     LayoutAnimation.easeInEaseOut();
   }
 
-  openAnyline = async type => {
+  openAnyline = async (type = "DIGITAL_METER") => {
     this.setState({ buttonsDisabled: true });
-    let config = BarcodeConfig;
+    let config;
+
+    // this.setState({
+    //   currentScanMode: type
+    // });
+    switch (type) {
+      case "ANALOG_METER":
+        config = AnalogEnergyConfig;
+        break;
+      case "DIGITAL_METER":
+        config = DigitalEnergyConfig;
+        break;
+    }
 
     try {
       const result = await AnylineOCR.setupPromise(
@@ -58,16 +74,22 @@ export default class AnylineBarcodeScanner extends Component {
       delete data.fullImagePath;
       delete data.imagePath;
 
-      let barcodeResultJSON = JSON.parse(result);
-      const { SPID } = this.props;
-      Actions.barcodeResult({
+      // this.setState({
+      //   hasScanned: true,
+      //   result: data,
+      //   imagePath: imagePath,
+      //   fullImagePath: fullImagePath
+      // });
+
+      const { accountNumber, SPID } = this.props;
+      Actions.meterReadResult({
         currentScanMode: type,
-        result: barcodeResultJSON,
+        reading: data.reading,
         imagePath,
         fullImagePath,
-        data: result,
         emptyResult: this.emptyResult,
-        SPID: SPID
+        SPID,
+        accountNumber
       });
     } catch (error) {
       if (error !== "Canceled") {
@@ -129,9 +151,9 @@ export default class AnylineBarcodeScanner extends Component {
     const {
       hasScanned,
       result,
-      imagePath,
-      fullImagePath,
-      currentScanMode,
+      // imagePath,
+      // fullImagePath,
+      // currentScanMode,
       buttonsDisabled
       // SDKVersion
     } = this.state;
@@ -146,32 +168,27 @@ export default class AnylineBarcodeScanner extends Component {
       }
     });
 
+    let data = result;
     return (
       <View
       // style={styles.container}
       // contentContainerStyle={styles.ContainerContent}
       >
         {/* <Text style={styles.headline}>Anyline React-Native Example</Text> */}
-        {hasScanned ? (
-          // Actions.barcodeResult({
-          //   currentScanMode,
-          //   result,
-          //   imagePath,
-          //   fullImagePath,
-          //   data: result,
-          //   emptyResult: this.emptyResult
-          // })
-          <BarcodeResult
-            currentScanMode={currentScanMode}
-            result={result}
-            imagePath={imagePath}
-            fullImagePath={fullImagePath}
-            data={result}
-            emptyResult={this.emptyResult}
-          />
-        ) : (
-          <AnylineBarcodeOptions
-            key="AnylineBarcodeOptions"
+        {hasScanned ? //   data: result, //   fullImagePath, //   imagePath, //   result, //   currentScanMode, // Actions.MeterReadResult({
+        //   emptyResult: this.emptyResult
+        // })
+        null : (
+          // <MeterReadResult
+          //   currentScanMode={currentScanMode}
+          //   result={result}
+          //   imagePath={imagePath}
+          //   fullImagePath={fullImagePath}
+          //   data={result}
+          //   emptyResult={this.emptyResult}
+          // />
+          <AnylineMeterReadOptions
+            key="AnylineMeterReadOptions"
             openAnyline={this.openAnyline}
             checkCameraPermissionAndOpen={this.checkCameraPermissionAndOpen}
             disabled={buttonsDisabled}

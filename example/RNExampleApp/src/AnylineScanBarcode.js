@@ -140,7 +140,6 @@ export default class AnylineScanBarcode extends Component {
         "scan"
       );
 
-      console.log(result);
       this.setState({ buttonsDisabled: false });
 
       const data = JSON.parse(result);

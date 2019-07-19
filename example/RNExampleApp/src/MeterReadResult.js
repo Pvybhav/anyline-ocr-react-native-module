@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import {
-  StatusBar,
   Image,
   ScrollView,
   StyleSheet,
   View,
-  Dimensions
+  Dimensions,
+  StatusBar
 } from "react-native";
-// import { flattenObject } from "./utils/utils";
-import AnylineMeterReadScanner from "./AnylineMeterReadScanner";
-
 import {
   Container,
   Header,
@@ -23,66 +20,57 @@ import {
   Title,
   Right,
   Form,
-  Label,
   Item,
+  Label,
   Input,
   Icon
 } from "native-base";
 import { Actions } from "react-native-router-flux";
 
-export default class BarcodeResult extends Component {
-  state = { accountNumber: "", loaded: false };
+export default class MeterReadResult extends Component {
+  state = { reading: "", loaded: false };
   static navigationOptions = {
     header: null
   };
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (
-  //     nextProps.result.value !== this.state.accountNumber &&
-  //     this.state.loaded === false
-  //   ) {
-  //     this.setState({ accountNumber, loaded: true });
-  //   }
-  // }
   static getDerivedStateFromProps(props, state) {
     const {
-      result,
       imagePath,
       fullImagePath,
-      emptyResult,
       currentScanMode,
       SPID,
-      value: accountNumber
-    } = props.result;
-    if (state.accountNumber !== accountNumber && state.loaded === false) {
+      reading,
+      accountNumber
+    } = props;
+    if (state.reading !== props.reading && state.loaded === false) {
       return {
-        result,
         imagePath,
         fullImagePath,
-        emptyResult,
         currentScanMode,
         SPID,
+        reading,
         accountNumber,
         loaded: true
       };
     }
     return null;
   }
-
+  handleSubmit = () => {
+    Actions.acknowledgement();
+  };
   render() {
-    let {
-      result,
-      imagePath,
-      fullImagePath,
-      emptyResult,
-      currentScanMode,
-      SPID
-    } = this.props;
     const {
-      state: { accountNumber }
+      handleSubmit,
+      state: { reading },
+      props: {
+        imagePath,
+        fullImagePath,
+        // emptyResult,
+        // currentScanMode,
+        SPID,
+        accountNumber
+      }
     } = this;
     let fullImage = <View />;
-    let fullImageText = <View />;
     if (fullImagePath && fullImagePath != "") {
       fullImage = (
         <Image
@@ -122,34 +110,28 @@ export default class BarcodeResult extends Component {
             source={{ uri: `file://${imagePath}` }}
           />
           <Text>{`SPID ${SPID}`}</Text>
+          <Text>{`Account Number ${accountNumber}`}</Text>
           <Form>
-            <Item floatingLabel {...(isNaN(accountNumber) ? "error" : null)}>
-              <Label>Account Number</Label>
+            <Item floatingLabel {...(isNaN(reading) ? "error" : null)}>
+              <Label>Meter Reading</Label>
               <Input
-                placeholder="Enter Account Number"
-                value={accountNumber}
-                onChangeText={accountNumber => this.setState({ accountNumber })}
+                placeholder="Enter Meter Reading"
+                value={reading}
+                onChangeText={reading => this.setState({ reading })}
               />
-              {isNaN(accountNumber) && (
+              {isNaN(reading) && (
                 <Icon name="close-circle" style={{ color: "red" }} />
               )}
             </Item>
           </Form>
-          {!isNaN(accountNumber) && (
-            <AnylineMeterReadScanner
-              style={{ flex: 0.2, height: "20%" }}
-              SPID={SPID}
-              accountNumber={accountNumber}
-            />
-          )}
         </Content>
-        {/* <Footer>
+        <Footer>
           <FooterTab>
-            <Button full>
-              <Text>Footer</Text>
+            <Button full onPress={handleSubmit}>
+              <Text>Submit</Text>
             </Button>
           </FooterTab>
-        </Footer> */}
+        </Footer>
       </Container>
     );
   }

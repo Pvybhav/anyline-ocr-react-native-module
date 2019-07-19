@@ -200,7 +200,6 @@ export default class Anyline extends Component {
   };
 
   checkCameraPermissionAndOpen = type => {
-    alert("checking permission");
     this.hasCameraPermission().then(hasCameraPermission => {
       console.log("hasCameraPermission result is " + hasCameraPermission);
       if (hasCameraPermission) {
