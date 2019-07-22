@@ -114,9 +114,14 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   buttonStyle: {
-    margin: 10
+    margin: 10,
+    fontSize: 20,
+    fontWeight: "bold"
   },
   buttonTextStyle: {
-    fontWeight: "bold"
+    fontSize: 20,
+    color: "white",
+    fontWeight: "bold",
+    margin: 10
   }
 });

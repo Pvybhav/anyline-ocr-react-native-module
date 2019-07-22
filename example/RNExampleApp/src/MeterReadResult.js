@@ -7,8 +7,6 @@ import {
   Header,
   Content,
   Text,
-  Footer,
-  FooterTab,
   Button,
   Left,
   Body,
@@ -67,12 +65,14 @@ export default class MeterReadResult extends Component {
     if (fullImagePath && fullImagePath != "") {
       fullImage = (
         <Image
-          style={styles.image}
+          style={styles.fullImageStyle}
           resizeMode={"contain"}
           source={{ uri: `file://${fullImagePath}` }}
         />
       );
-      fullImageText = <Text style={styles.text}>Full Image:</Text>;
+      fullImageText = (
+        <Text>Full Image:</Text>
+      );
     }
     return (
       <Container>
@@ -90,7 +90,7 @@ export default class MeterReadResult extends Component {
               <Icon name="back" size={30} color="#66cc41" />
             </Button>
           </Left>
-          <Body style={{ flex: 1 }}>
+          <Body>
             <Title>
               <Text style={styles.headerContentStyle}>Meter Read Result</Text>
             </Title>
@@ -100,18 +100,18 @@ export default class MeterReadResult extends Component {
               </Text>
             </Subtitle>
           </Body>
-          <Right style={{ flex: 1 }}>
+          <Right>
             <Button transparent onPress={handleLogout}>
               <Icon name="logout" size={30} color="#ffb10a" />
             </Button>
           </Right>
         </Header>
         <Content>
-          <Text>Full Image:</Text>
+          {fullImageText}
           {fullImage}
-          <Text style={styles.text}>Cutout:</Text>
+          <Text>Cutout:</Text>
           <Image
-            style={styles.image}
+            style={styles.cutoutImageStyle}
             resizeMode={"contain"}
             source={{ uri: `file://${imagePath}` }}
           />
@@ -123,14 +123,49 @@ export default class MeterReadResult extends Component {
               alignItems: "center"
             }}
           >
-          <Text>{`SPID ${SPID}`}</Text>
-          <Text>{`Account Number ${accountNumber}`}</Text>
+            <View
+              style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+            >
+              <Text
+                style={{
+                  flex: 0.5,
+                  textAlign: "center",
+                  marginRight: 10,
+                  fontWeight: "bold"
+                }}
+              >
+                SPID
+              </Text>
+              <Text
+                style={{ flex: 0.5, textAlign: "left", marginLeft: 10 }}
+              >{`${SPID}`}</Text>
+            </View>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: "row",
+                alignItems: "center"
+              }}
+            >
+              <Text
+                style={{
+                  flex: 0.5,
+                  textAlign: "center",
+                  marginRight: 10,
+                  fontWeight: "bold"
+                }}
+              >
+                Account Number
+              </Text>
+              <Text
+                style={{ flex: 0.5, textAlign: "left", marginLeft: 10 }}
+              >{`${accountNumber}`}</Text>
+            </View>
           </View>
           <Form>
-            <Item floatingLabel {...(isNaN(reading) ? "error" : null)}>
+            <Item floatingLabel>
               <Label>Meter Reading</Label>
               <Input
-                placeholder="Enter Meter Reading"
                 value={reading}
                 onChangeText={reading => this.setState({ reading })}
                 autoFocus
@@ -140,26 +175,47 @@ export default class MeterReadResult extends Component {
               )}
             </Item>
           </Form>
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button full onPress={handleSubmit}>
-              <Text>Submit</Text>
+          <View
+            style={{
+              justifyContent: "center",
+              alignItems: "center",
+              alignContent: "center"
+            }}
+          >
+            <Button
+              full
+              rounded
+              style={styles.submitButtonStyle}
+              onPress={handleSubmit}
+            >
+              <Text style={styles.submitButtonTextStyle}>Submit</Text>
             </Button>
-          </FooterTab>
-        </Footer>
+          </View>
+        </Content>
       </Container>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  image: {
+  fullImageStyle: {
     flex: 1,
     height: 300,
     width: Dimensions.get("window").width,
     alignSelf: "stretch"
   },
+  cutoutImageStyle: {
+    flex: 1,
+    height: 200,
+    width: Dimensions.get("window").width,
+    alignSelf: "stretch"
+  },
+  imageHeaderTextStyle: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold"
+  },
+  
   container: {
     flex: 1,
     justifyContent: "space-around",
@@ -171,7 +227,9 @@ const styles = StyleSheet.create({
   headerContentStyle: {
     color: "white",
     fontWeight: "bold",
-    fontSize: 20
+    fontSize: 20,
+    textAlign: "center",
+    flexDirection: "row"
   },
   headline: {
     fontWeight: "bold",
@@ -180,11 +238,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     justifyContent: "center"
   },
-  // text: {
-  //   color: "white",
-  //   justifyContent: "space-around",
-  //   marginTop: 5
-  // },
   scrollContainer: {
     display: "flex",
     alignItems: "center",
@@ -194,7 +247,21 @@ const styles = StyleSheet.create({
   buttonStyle: {
     margin: 10
   },
-  buttonTextStyle: {
-    fontWeight: "bold"
+  submitButtonStyle: {
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: "stretch",
+    justifyContent: "center"
+  },
+  submitButtonTextStyle: {
+    margin: 10,
+    fontWeight: "bold",
+    alignContent: "center",
+    color: "white",
+    width: "100%",
+    alignItems: "center",
+    alignSelf: "center",
+    fontSize: 20,
+    textAlign: "center"
   }
 });

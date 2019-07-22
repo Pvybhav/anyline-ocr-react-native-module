@@ -87,14 +87,19 @@ export default class SelectArea extends Component {
               onValueChange={value => this.setState({ selectedArea: value })}
               placeholder="Select Your Area"
             >
-              <Picker.Item label="Al Ghubra1" value="Al_Ghubra1" />
-              <Picker.Item label="Al Ghubra2" value="Al_Ghubra2" />
-              <Picker.Item label="Al Khuwair33" value="Al_Khuwair33" />
-              <Picker.Item label="Al KhuwairSouth" value="Al_KhuwairSouth" />
+              <Picker.Item label="  Al Ghubra1" value="Al_Ghubra1" />
+              <Picker.Item label="  Al Ghubra2" value="Al_Ghubra2" />
+              <Picker.Item label="  Al Khuwair33" value="Al_Khuwair33" />
+              <Picker.Item label="  Al KhuwairSouth" value="Al_KhuwairSouth" />
             </Picker>
           </Form>
-          <Button full rounded onPress={() => Actions.workorders()}>
-            <Text style={styles.loginTextStyle}>Submit</Text>
+          <Button
+            full
+            rounded
+            onPress={() => Actions.workorders()}
+            style={styles.submitButtonStyle}
+          >
+            <Text style={styles.submitTextStyle}>Submit</Text>
           </Button>
         </Content>
       </Container>
@@ -111,6 +116,12 @@ const styles = StyleSheet.create({
   submitTextStyle: {
     fontSize: 20,
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    margin: 10
+  },
+  submitButtonStyle: {
+    margin: 10,
+    // marginTop: 10,
+    // marginBottom: 10
   }
 });

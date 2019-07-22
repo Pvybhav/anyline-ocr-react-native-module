@@ -125,8 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   scanMeterButton: {
-    marginTop: 10,
-    marginBottom: 10
+    margin: 10
   },
   buttonText: {
     textAlign: "center",

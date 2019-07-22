@@ -79,16 +79,17 @@ export default class Login extends Component {
           }}
         >
           <Form>
-            <Item fixedLabel>
-              <Label style={styles.labelTextStyle}>Username</Label>
+            <Item floatingLabel>
+              <Label>Username</Label>
               <Input
                 value={userName}
                 onChangeText={userName => this.setState({ userName })}
+                autoFocus
                 autoCapitalize="none"
               />
             </Item>
-            <Item fixedLabel last>
-              <Label style={styles.labelTextStyle}>Password</Label>
+            <Item floatingLabel>
+              <Label>Password</Label>
               <Input
                 value={password}
                 onChangeText={password => this.setState({ password })}
@@ -96,8 +97,13 @@ export default class Login extends Component {
               />
             </Item>
           </Form>
-          <Button full rounded onPress={handleLogin}>
-            <Text style={styles.loginTextStyle}>Login</Text>
+          <Button
+            full
+            rounded
+            onPress={handleLogin}
+            style={styles.loginButtonStyle}
+          >
+            <Text style={styles.loginTextStyle}>LOGIN</Text>
           </Button>
         </Content>
       </Container>
@@ -123,9 +129,17 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20
   },
+  loginButtonStyle: {
+    margin: 10,
+    marginTop: 50
+    // marginRight: 10,
+    // width: "100%"
+  },
   loginTextStyle: {
     fontSize: 20,
     color: "white",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    width: "100%",
+    textAlign: "center"
   }
 });

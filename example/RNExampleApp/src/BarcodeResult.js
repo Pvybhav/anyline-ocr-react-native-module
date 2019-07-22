@@ -64,12 +64,14 @@ export default class BarcodeResult extends Component {
     if (fullImagePath && fullImagePath != "") {
       fullImage = (
         <Image
-          style={styles.image}
+          style={styles.fullImageStyle}
           resizeMode={"contain"}
           source={{ uri: `file://${fullImagePath}` }}
         />
       );
-      fullImageText = <Text style={styles.text}>Full Image:</Text>;
+      fullImageText = (
+        <Text style={styles.imageHeaderTextStyle}>Full Image:</Text>
+      );
     }
     return (
       <Container>
@@ -106,9 +108,9 @@ export default class BarcodeResult extends Component {
         <Content>
           <Text>Full Image:</Text>
           {fullImage}
-          <Text style={styles.text}>Cutout:</Text>
+          <Text>Cutout:</Text>
           <Image
-            style={styles.image}
+            style={styles.cutoutImageStyle}
             resizeMode={"contain"}
             source={{ uri: `file://${imagePath}` }}
           />
@@ -126,7 +128,6 @@ export default class BarcodeResult extends Component {
             <Item floatingLabel {...(isNaN(accountNumber) ? "error" : null)}>
               <Label>Account Number</Label>
               <Input
-                placeholder="Enter Account Number"
                 value={accountNumber}
                 onChangeText={accountNumber => this.setState({ accountNumber })}
                 autoFocus
@@ -150,11 +151,22 @@ export default class BarcodeResult extends Component {
 }
 
 const styles = StyleSheet.create({
-  image: {
+  fullImageStyle: {
     flex: 1,
     height: 300,
     width: Dimensions.get("window").width,
     alignSelf: "stretch"
+  },
+  cutoutImageStyle: {
+    flex: 1,
+    height: 200,
+    width: Dimensions.get("window").width,
+    alignSelf: "stretch"
+  },
+  imageHeaderTextStyle: {
+    textAlign: "center",
+    fontSize: 20,
+    fontWeight: "bold"
   },
   container: {
     flex: 1,

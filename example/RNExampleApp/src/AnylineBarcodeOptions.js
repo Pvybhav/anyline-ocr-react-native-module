@@ -16,6 +16,7 @@ export default function AnylineBarcodeOptions({
       rounded
       onPress={() => platformPermissionCheck("BARCODE")}
       disabled={disabled}
+      style={styles.scanBarcode}
     >
       <Text style={styles.scanMeterTextStyle}>Scan Barcode</Text>
     </Button>
@@ -23,6 +24,9 @@ export default function AnylineBarcodeOptions({
 }
 
 const styles = StyleSheet.create({
+  scanBarcode: {
+    margin: 10
+  },
   scanMeterTextStyle: {
     fontSize: 20,
     color: "white",

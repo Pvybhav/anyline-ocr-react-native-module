@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, StatusBar } from "react-native";
+import { StyleSheet, Text, View, StatusBar, Dimensions } from "react-native";
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
@@ -18,7 +18,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 export default class Acknowledgement extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { acknowledgementNumber: "11223313" };
   }
   static navigationOptions = {
     header: null
@@ -30,7 +30,7 @@ export default class Acknowledgement extends Component {
   render() {
     const {
       handleLogout,
-      state: {}
+      state: { acknowledgementNumber }
     } = this;
     return (
       <Container>
@@ -69,23 +69,42 @@ export default class Acknowledgement extends Component {
             flex: 1,
             flexDirection: "column",
             justifyContent: "center",
-            alignItems: "center"
+            alignItems: "center",
+            width: "100%"
           }}
         >
-          <Text style={styles.successTextStyle}>SUCCESS!!!</Text>
-          <Text style={{ justifyContent: "center" }}>
-            Meter reading captured successfully.
-          </Text>
-          <Text style={{ justifyContent: "center" }}>
-            Acknowledgement ID: 11223312
-          </Text>
-          <Button
-            full
-            rounded
-            // onPress={() => Actions.summary()}
+          <Text style={styles.successTextStyle}>Success !!!</Text>
+
+          <Text
+            style={{ justifyContent: "center" }}
+            style={styles.successMessageStyle}
           >
-            <Text style={styles.okButtonStyle}>OK</Text>
-          </Button>
+            {"\n"}Meter reading captured successfully. {"\n"}
+            {"\n"}
+            Acknowledgement ID:{" "}
+            <Text style={styles.acknowledgementNoStyle}>
+              {acknowledgementNumber}
+            </Text>
+          </Text>
+
+          <View
+            style={{
+              width: "100%",
+              // height: "30%",
+              marginTop: 20,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <Button
+              full
+              rounded
+              // onPress={() => Actions.summary()}
+              style={styles.okButtonStyle}
+            >
+              <Text style={styles.okButtonTextStyle}>OK</Text>
+            </Button>
+          </View>
         </Content>
       </Container>
     );
@@ -104,15 +123,36 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20
   },
-  okButtonStyle: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold"
-  },
   successTextStyle: {
     fontSize: 25,
     color: "green",
     fontWeight: "bold",
+    justifyContent: "center",
+    textAlign: "center",
+    width: "100%"
+  },
+  successMessageStyle: {
+    fontSize: 15,
+    color: "black",
+    justifyContent: "center",
+  },
+  acknowledgementNoStyle: {
+    fontWeight: "bold",
+    fontSize: 18
+  },
+  okButtonStyle: {
+    margin: 10,
+    alignItems: "stretch",
     justifyContent: "center"
+  },
+  okButtonTextStyle: {
+    fontWeight: "bold",
+    alignContent: "center",
+    color: "white",
+    width: "100%",
+    alignItems: "center",
+    alignSelf: "center",
+    fontSize: 20,
+    textAlign: "center"
   }
 });

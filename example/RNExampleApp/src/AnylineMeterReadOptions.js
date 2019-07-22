@@ -16,14 +16,18 @@ export default function AnylineMeterReadOptions({
       rounded
       onPress={() => platformPermissionCheck("DIGITAL_METER")}
       disabled={disabled}
+      style={styles.proceedButtonStyle}
     >
-      <Text style={styles.scanMeterTextStyle}>Scan Meter</Text>
+      <Text style={styles.proceedTextStyle}>Proceed</Text>
     </Button>
   );
 }
 
 const styles = StyleSheet.create({
-  scanMeterTextStyle: {
+  proceedButtonStyle: {
+    margin: 10
+  },
+  proceedTextStyle: {
     fontSize: 20,
     color: "white",
     fontWeight: "bold"
