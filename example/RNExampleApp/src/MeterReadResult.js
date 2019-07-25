@@ -186,6 +186,14 @@ export default class MeterReadResult extends Component {
               full
               rounded
               style={styles.submitButtonStyle}
+              // onPress={handlePhoto}
+            >
+              <Text style={styles.submitButtonTextStyle}>Caputre Photo</Text>
+            </Button>
+            <Button
+              full
+              rounded
+              style={styles.submitButtonStyle}
               onPress={handleSubmit}
             >
               <Text style={styles.submitButtonTextStyle}>Submit</Text>
