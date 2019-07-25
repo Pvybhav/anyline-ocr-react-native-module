@@ -10,6 +10,7 @@ import SelectArea from "./SelectArea";
 import BarcodeResult from "./BarcodeResult";
 import MeterReadResult from "./MeterReadResult";
 import Acknowledgement from "./Acknowledgement";
+import CapturePhoto from "./CapturePhoto";
 
 class Routes extends Component {
   state = {
@@ -97,7 +98,12 @@ class Routes extends Component {
             key="acknowledgement"
             component={Acknowledgement}
             title="Acknowledgement"
-          />
+          /> 
+          <Scene
+            key="capturePhoto"
+            component={CapturePhoto}
+            title="Capture Photo"
+          /> 
         </Scene>
       </Router>
     );

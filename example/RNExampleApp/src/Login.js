@@ -79,7 +79,7 @@ export default class Login extends Component {
           }}
         >
           <Form>
-            <Item floatingLabel>
+            <Item >
               <Label>Username</Label>
               <Input
                 value={userName}
@@ -88,7 +88,7 @@ export default class Login extends Component {
                 autoCapitalize="none"
               />
             </Item>
-            <Item floatingLabel>
+            <Item >
               <Label>Password</Label>
               <Input
                 value={password}

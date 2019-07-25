@@ -125,7 +125,7 @@ export default class BarcodeResult extends Component {
             <Text>{`SPID ${SPID}`}</Text>
           </View>
           <Form>
-            <Item floatingLabel {...(isNaN(accountNumber) ? "error" : null)}>
+            <Item {...(isNaN(accountNumber) ? "error" : null)}>
               <Label>Account Number</Label>
               <Input
                 value={accountNumber}

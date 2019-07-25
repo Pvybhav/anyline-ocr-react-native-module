@@ -54,10 +54,14 @@ export default class MeterReadResult extends Component {
     await AsyncStorage.removeItem("isUserLogin");
     Actions.login();
   };
+  handlePhoto = () => {
+    Actions.capturePhoto();
+  }
   render() {
     const {
       handleSubmit,
       handleLogout,
+      handlePhoto,
       state: { reading },
       props: { imagePath, fullImagePath, SPID, accountNumber }
     } = this;
@@ -163,7 +167,7 @@ export default class MeterReadResult extends Component {
             </View>
           </View>
           <Form>
-            <Item floatingLabel>
+            <Item >
               <Label>Meter Reading</Label>
               <Input
                 value={reading}
@@ -182,6 +186,14 @@ export default class MeterReadResult extends Component {
               alignContent: "center"
             }}
           >
+            <Button
+              full
+              rounded
+              style={styles.submitButtonStyle}
+              onPress={handlePhoto}
+            >
+              <Text style={styles.submitButtonTextStyle}>Capture Photo</Text>
+            </Button>
             <Button
               full
               rounded
@@ -215,7 +227,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold"
   },
-  
+
   container: {
     flex: 1,
     justifyContent: "space-around",
