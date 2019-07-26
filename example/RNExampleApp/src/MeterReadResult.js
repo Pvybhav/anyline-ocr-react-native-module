@@ -1,5 +1,13 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Dimensions, StatusBar, Modal, TouchableHighlight } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  View,
+  Dimensions,
+  StatusBar,
+  Modal,
+  TouchableHighlight
+} from "react-native";
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
@@ -21,7 +29,7 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 
 export default class MeterReadResult extends Component {
-  state = { reading: "", loaded: false, modalVisible:false };
+  state = { reading: "", loaded: false, modalVisible: false };
   static navigationOptions = {
     header: null
   };
@@ -55,10 +63,26 @@ export default class MeterReadResult extends Component {
     Actions.login();
   };
   handlePhoto = () => {
-    Actions.capturePhoto({...this.props});
-  }
+    console.log(this.props);
+    const {
+      imagePath,
+      fullImagePath,
+      currentScanMode,
+      SPID,
+      reading,
+      accountNumber
+    } = this.props;
+    Actions.capturePhoto({
+      imagePath,
+      fullImagePath,
+      currentScanMode,
+      SPID,
+      reading,
+      accountNumber
+    });
+  };
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
   render() {
     const {
@@ -77,38 +101,44 @@ export default class MeterReadResult extends Component {
           source={{ uri: `file://${fullImagePath}` }}
         />
       );
-      fullImageText = (
-        <Text>Full Image:</Text>
-      );
+      fullImageText = <Text>Full Image:</Text>;
     }
     return (
       <Container>
-        {this.props.capturestate === true ? <View style={{marginTop: 22}}>
-        <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          >
-          <View style={{marginTop: 22}}>
-            <View>
-            <Image
-          style={{width: Dimensions.get("window").width , height: Dimensions.get("window").height - 100}}
-          source={{uri: "file://"+ this.props.captureImages[0].uri}}
-        />
-              <Button 
-              full
-              rounded
-              style={styles.submitButtonStyle}
-                onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}>
-                <Text>Close</Text>
-              </Button>
-            </View>
+        {this.props.capturestate === true ? (
+          <View>
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+            >
+              <View style={{ marginTop: 22 }}>
+                <View>
+                  <Image
+                    style={{
+                      width: Dimensions.get("window").width,
+                      height: Dimensions.get("window").height - 100
+                    }}
+                    source={{
+                      uri: "file://" + this.props.captureImages[0].uri
+                    }}
+                  />
+                  <Button
+                    full
+                    rounded
+                    style={styles.submitButtonStyle}
+                    onPress={() => {
+                      this.setModalVisible(!this.state.modalVisible);
+                    }}
+                  >
+                    <Text>Close</Text>
+                  </Button>
+                </View>
+              </View>
+            </Modal>
           </View>
-        </Modal>
-      </View> : null}
-        
+        ) : null}
+
         <StatusBar
           backgroundColor={styles.container.backgroundColor}
           barStyle="default"
@@ -196,7 +226,7 @@ export default class MeterReadResult extends Component {
             </View>
           </View>
           <Form>
-            <Item >
+            <Item>
               <Label>Meter Reading</Label>
               <Input
                 value={reading}
@@ -223,9 +253,16 @@ export default class MeterReadResult extends Component {
             >
               <Text style={styles.submitButtonTextStyle}>Capture Photo</Text>
             </Button>
-            {this.props.capturestate === true ? <Button transparent onPress={() => {
-            this.setModalVisible(true);
-          }}><Text>{this.props.captureImages[0].name}</Text></Button> : null}
+            {this.props.capturestate === true ? (
+              <Button
+                transparent
+                onPress={() => {
+                  this.setModalVisible(true);
+                }}
+              >
+                <Text>{this.props.captureImages[0].name}</Text>
+              </Button>
+            ) : null}
             <Button
               full
               rounded
