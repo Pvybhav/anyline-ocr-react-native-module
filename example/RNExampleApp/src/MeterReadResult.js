@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Image, StyleSheet, View, Dimensions, StatusBar } from "react-native";
+import { Image, StyleSheet, View, Dimensions, StatusBar, Modal, TouchableHighlight } from "react-native";
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
 import {
@@ -21,7 +21,7 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 
 export default class MeterReadResult extends Component {
-  state = { reading: "", loaded: false };
+  state = { reading: "", loaded: false, modalVisible:false };
   static navigationOptions = {
     header: null
   };
@@ -55,7 +55,10 @@ export default class MeterReadResult extends Component {
     Actions.login();
   };
   handlePhoto = () => {
-    Actions.capturePhoto();
+    Actions.capturePhoto({...this.props});
+  }
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
   render() {
     const {
@@ -80,6 +83,32 @@ export default class MeterReadResult extends Component {
     }
     return (
       <Container>
+        {this.props.capturestate === true ? <View style={{marginTop: 22}}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          >
+          <View style={{marginTop: 22}}>
+            <View>
+            <Image
+          style={{width: Dimensions.get("window").width , height: Dimensions.get("window").height - 100}}
+          source={{uri: "file://"+ this.props.captureImages[0].uri}}
+        />
+              <Button 
+              full
+              rounded
+              style={styles.submitButtonStyle}
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Close</Text>
+              </Button>
+            </View>
+          </View>
+        </Modal>
+      </View> : null}
+        
         <StatusBar
           backgroundColor={styles.container.backgroundColor}
           barStyle="default"
@@ -194,6 +223,9 @@ export default class MeterReadResult extends Component {
             >
               <Text style={styles.submitButtonTextStyle}>Capture Photo</Text>
             </Button>
+            {this.props.capturestate === true ? <Button transparent onPress={() => {
+            this.setModalVisible(true);
+          }}><Text>{this.props.captureImages[0].name}</Text></Button> : null}
             <Button
               full
               rounded
