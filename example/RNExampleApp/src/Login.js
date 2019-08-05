@@ -12,22 +12,19 @@ import {
   Item,
   Input,
   Label,
-  Button,
-  Left,
   Body,
   Title,
   Right
 } from "native-base";
+import NativeBaseButton from "./components/NativeBaseButton";
+import MyStatusBar from "./components/MyStatusBar";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userName: "",
-      password: "",
-      showToast: false,
-      visible: false,
-      isLoggedIn: false
+      password: ""
     };
   }
   static navigationOptions = {
@@ -37,9 +34,8 @@ export default class Login extends Component {
   handleLogin = async () => {
     const { userName, password } = this.state;
     if (userInfo.userName === userName && userInfo.password === password) {
-      await AsyncStorage.setItem("isUserLogin", "1").catch(err =>
-        alert("Error while setting isUserLogin to AsyncStorage")
-      );
+      await AsyncStorage.setItem("isUserLogin", "1").catch(err => alert(err));
+      await AsyncStorage.setItem("userName", userName).catch(err => alert(err));
       Actions.workOrderSelection();
     } else {
       alert("Please enter valid credentials");
@@ -49,20 +45,12 @@ export default class Login extends Component {
   render() {
     const {
       handleLogin,
-      state: { userName, password, isLoggedIn }
+      state: { userName, password }
     } = this;
     return (
       <Container>
-        <StatusBar
-          backgroundColor={styles.container.backgroundColor}
-          barStyle="default"
-          animated
-          hidden={false}
-          networkActivityIndicatorVisible={false}
-          translucent={false}
-        />
-        <Header>
-          <Left />
+        <MyStatusBar />
+        <Header noLeft>
           <Body>
             <Title>
               <Text style={styles.headerContentStyle}>MOBBILL</Text>
@@ -70,41 +58,32 @@ export default class Login extends Component {
           </Body>
           <Right />
         </Header>
-        <Content
-          contentContainerStyle={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "stretch"
-          }}
-        >
+        <Content contentContainerStyle={styles.contentContainerStyle}>
           <Form>
-            <Item >
+            <Item floatingLabel>
               <Label>Username</Label>
               <Input
-                value={userName}
                 onChangeText={userName => this.setState({ userName })}
                 autoFocus
                 autoCapitalize="none"
               />
             </Item>
-            <Item >
+            <Item floatingLabel>
               <Label>Password</Label>
               <Input
-                value={password}
                 onChangeText={password => this.setState({ password })}
+                autoCapitalize="none"
                 secureTextEntry
               />
             </Item>
           </Form>
-          <Button
+          <NativeBaseButton
             full
             rounded
             onPress={handleLogin}
-            style={styles.loginButtonStyle}
-          >
-            <Text style={styles.loginTextStyle}>LOGIN</Text>
-          </Button>
+            buttonText="LOGIN"
+            style={{ marginTop: 50, margin: 20 }}
+          />
         </Content>
       </Container>
     );
@@ -112,34 +91,16 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainerStyle: {
     flex: 1,
+    flexDirection: "column",
     justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#338779"
+    alignItems: "stretch"
   },
-  input: {
-    width: "90%",
-    backgroundColor: "#d6e6ff",
-    padding: 15,
-    marginBottom: 10
-  },
+
   headerContentStyle: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20
-  },
-  loginButtonStyle: {
-    margin: 10,
-    marginTop: 50
-    // marginRight: 10,
-    // width: "100%"
-  },
-  loginTextStyle: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
-    width: "100%",
-    textAlign: "center"
   }
 });
