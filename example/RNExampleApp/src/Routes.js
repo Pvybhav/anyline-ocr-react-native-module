@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Router, Scene } from "react-native-router-flux";
-import Login from "./Login";
-import WorkOrderSelection from "./WorkOrderSelection";
-import WorkOrders from "./WorkOrders";
+import Login from "./views/Login";
+import WorkOrderSelection from "./views/WorkOrderSelection";
+import SelectArea from "./views/SelectArea";
+import WorkOrders from "./views/WorkOrders";
 import ServicePointDetails from "./ServicePointDetails";
 import LoadingSpinner from "./LoadingSpinner";
-import SelectArea from "./SelectArea";
 import BarcodeResult from "./BarcodeResult";
 import MeterReadResult from "./MeterReadResult";
 import Acknowledgement from "./Acknowledgement";
@@ -98,12 +98,12 @@ class Routes extends Component {
             key="acknowledgement"
             component={Acknowledgement}
             title="Acknowledgement"
-          /> 
+          />
           <Scene
             key="capturePhoto"
             component={CapturePhoto}
             title="Capture Photo"
-          /> 
+          />
         </Scene>
       </Router>
     );

@@ -1,16 +1,6 @@
 import React, { Component } from "react";
-import {
-  StyleSheet,
-  Platform,
-  View,
-  StatusBar,
-  // Text,
-  SectionList,
-  Alert,
-  Dimensions
-} from "react-native";
+import { StyleSheet, View, Alert, Dimensions } from "react-native";
 import { Actions } from "react-native-router-flux";
-
 import {
   Container,
   Header,
@@ -25,9 +15,9 @@ import {
   Subtitle,
   Text
 } from "native-base";
-import Icon from "react-native-vector-icons/AntDesign";
-
+import AntDesignIcon from "react-native-vector-icons/AntDesign";
 import AsyncStorage from "@react-native-community/async-storage";
+import MyStatusBar from "../components/MyStatusBar";
 
 export default class WorkOrders extends Component {
   constructor(props) {
@@ -135,45 +125,47 @@ export default class WorkOrders extends Component {
       ]
     };
   }
+
   static navigationOptions = {
     header: null
   };
 
   GetSectionListItem = item => {
-    //Function for click on an item
     Alert.alert(item);
   };
+
   FlatListItemSeparator = () => {
     return (
-      //Item Separator
       <View
         style={{ height: 0.5, width: "100%", backgroundColor: "#C8C8C8" }}
       />
     );
   };
+
+  handleWorkOrderCard = workOrder => Actions.servicepointdetails({ workOrder });
+
   handleLogout = async () => {
     await AsyncStorage.removeItem("isUserLogin");
     Actions.login();
   };
+
+  hanleBackButtonClick = () => Actions.pop();
+
   render() {
     const {
+      hanleBackButtonClick,
+      handleWorkOrderCard,
       handleLogout,
       state: { workOrders }
     } = this;
+
     return (
       <Container>
-        {/* <StatusBar
-          backgroundColor={styles.container.backgroundColor}
-          barStyle="default"
-          animated
-          hidden={false}
-          networkActivityIndicatorVisible={false}
-          translucent={false}
-        /> */}
+        <MyStatusBar />
         <Header>
           <Left>
-            <Button transparent onPress={() => Actions.pop()}>
-              <Icon name="back" size={30} color="#66cc41" />
+            <Button transparent onPress={hanleBackButtonClick}>
+              <AntDesignIcon name="back" size={30} color="#66cc41" />
             </Button>
           </Left>
           <Body style={{ flex: 1 }}>
@@ -188,7 +180,7 @@ export default class WorkOrders extends Component {
           </Body>
           <Right style={{ flex: 1 }}>
             <Button transparent onPress={handleLogout}>
-              <Icon name="logout" size={30} color="#ffb10a" />
+              <AntDesignIcon name="logout" size={30} color="#ffb10a" />
             </Button>
           </Right>
         </Header>
@@ -198,15 +190,12 @@ export default class WorkOrders extends Component {
               <CardItem
                 header
                 button
-                onPress={() => Actions.servicepointdetails({ workOrder })}
+                onPress={() => handleWorkOrderCard(workOrder)}
                 style={styles.cardHeaderStyle}
               >
                 <Text>{`SPID : ${workOrder.SPID}`}</Text>
               </CardItem>
-              <CardItem
-                button
-                onPress={() => Actions.servicepointdetails({ workOrder })}
-              >
+              <CardItem button onPress={() => handleWorkOrderCard(workOrder)}>
                 <Body>
                   <Text>
                     {` Meter Number : ${workOrder.meterNumber} \n Date : ${
@@ -218,7 +207,7 @@ export default class WorkOrders extends Component {
               <CardItem
                 footer
                 button
-                onPress={() => Actions.servicepointdetails({ workOrder })}
+                onPress={() => handleWorkOrderCard(workOrder)}
               >
                 <View>
                   <Text>
@@ -236,39 +225,21 @@ export default class WorkOrders extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    width: "100%",
-    alignItems: "center",
-    backgroundColor: "#338779"
-  },
-  SectionHeaderStyle: {
-    backgroundColor: "#CDDC89",
-    fontSize: 20,
-    padding: 5,
-    color: "#fff"
-  },
   headerContentStyle: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20
   },
-  SectionListItemStyle: {
-    flex: 1,
-    fontSize: 15,
-    width: Dimensions.get("window").width,
-    padding: 15,
-    color: "#000",
-    backgroundColor: "#F5F5F5"
-  },
+
   cardHeaderStyle: {
     backgroundColor: "#c1cfe6",
     height: 10
   },
+
   pendingStatusStyle: {
     color: "red"
   },
+
   completedStatusStyle: {
     color: "green"
   }

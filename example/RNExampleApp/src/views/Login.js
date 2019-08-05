@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { StyleSheet, Text, StatusBar } from "react-native";
 import { Actions } from "react-native-router-flux";
 import AsyncStorage from "@react-native-community/async-storage";
-
-const userInfo = { userName: "smith", password: "smith" };
 import {
   Container,
   Header,
@@ -16,24 +14,25 @@ import {
   Title,
   Right
 } from "native-base";
-import NativeBaseButton from "./components/NativeBaseButton";
-import MyStatusBar from "./components/MyStatusBar";
+import NativeBaseButton from "../components/NativeBaseButton";
+import MyStatusBar from "../components/MyStatusBar";
+
+const userInfo = { userName: "smith", password: "smith" };
 
 export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userName: "",
-      password: ""
-    };
-  }
+  state = {
+    userNameInput: "",
+    passwordInput: ""
+  };
+
   static navigationOptions = {
     header: null
   };
 
   handleLogin = async () => {
-    const { userName, password } = this.state;
-    if (userInfo.userName === userName && userInfo.password === password) {
+    const { userNameInput, passwordInput } = this.state;
+    const { userName, password } = userInfo;
+    if (userName === userNameInput && password === passwordInput) {
       await AsyncStorage.setItem("isUserLogin", "1").catch(err => alert(err));
       await AsyncStorage.setItem("userName", userName).catch(err => alert(err));
       Actions.workOrderSelection();
@@ -43,10 +42,7 @@ export default class Login extends Component {
   };
 
   render() {
-    const {
-      handleLogin,
-      state: { userName, password }
-    } = this;
+    const { handleLogin } = this;
     return (
       <Container>
         <MyStatusBar />
@@ -63,7 +59,7 @@ export default class Login extends Component {
             <Item floatingLabel>
               <Label>Username</Label>
               <Input
-                onChangeText={userName => this.setState({ userName })}
+                onChangeText={userNameInput => this.setState({ userNameInput })}
                 autoFocus
                 autoCapitalize="none"
               />
@@ -71,7 +67,7 @@ export default class Login extends Component {
             <Item floatingLabel>
               <Label>Password</Label>
               <Input
-                onChangeText={password => this.setState({ password })}
+                onChangeText={passwordInput => this.setState({ passwordInput })}
                 autoCapitalize="none"
                 secureTextEntry
               />
@@ -82,7 +78,7 @@ export default class Login extends Component {
             rounded
             onPress={handleLogin}
             buttonText="LOGIN"
-            style={{ marginTop: 50, margin: 20 }}
+            style={styles.buttonStyle}
           />
         </Content>
       </Container>
@@ -102,5 +98,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     fontSize: 20
-  }
+  },
+  buttonStyle: { marginTop: 50, margin: 20 }
 });

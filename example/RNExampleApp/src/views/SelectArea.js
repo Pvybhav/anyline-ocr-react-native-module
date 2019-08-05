@@ -19,62 +19,66 @@ import {
 } from "native-base";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Actions } from "react-native-router-flux";
+import NativeBaseButton from "../components/NativeBaseButton";
 
 export default class SelectArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      listOfAreas: [
+        "Al_Ghubra1",
+        "Al_Ghubra2",
+        "Al_Khuwair33",
+        "Al_KhuwairSouth"
+      ],
       selectedArea: null
     };
   }
+
   static navigationOptions = {
     header: null
   };
+
   handleLogout = async () => {
     await AsyncStorage.removeItem("isUserLogin");
     Actions.login();
   };
+
+  handleSelectedArea = () => Actions.workorders();
+
+  hanleBackButtonClick = () => Actions.pop();
   render() {
     const {
+      hanleBackButtonClick,
       handleLogout,
-      state: { selectedArea }
+      handleSelectedArea,
+      state: { listOfAreas, selectedArea }
     } = this;
     return (
       <Container>
         <Header>
           <Left>
-            <Button transparent onPress={() => Actions.pop()}>
+            <Button transparent onPress={hanleBackButtonClick}>
               <Icon name="back" size={30} color="#66cc41" />
             </Button>
           </Left>
-          <Body style={{ flex: 1 }}>
+          <Body>
             <Title>
               <Text style={styles.headerContentStyle}>Select Area</Text>
             </Title>
             <Subtitle>
-              <Text style={{ color: "white", fontStyle: "italic" }}>
-                Hello, Smith
-              </Text>
+              <Text style={styles.subtitleStyle}>Hello, Smith</Text>
             </Subtitle>
           </Body>
-          <Right style={{ flex: 1 }}>
+          <Right>
             <Button transparent onPress={handleLogout}>
               <Icon name="logout" size={30} color="#ffb10a" />
             </Button>
           </Right>
         </Header>
-        <Content
-        // contentContainerStyle={{
-        // flex: 1,
-        // flexDirection: "column",
-        //   justifyContent: "center",
-        //   alignItems: "stretch"
-        // }}
-        >
-          <Separator bordered style={{ height: 50 }}>
-            <Text style={{ fontSize: 15, color: "black", fontWeight: "bold" }}>
-              Select Area
-            </Text>
+        <Content>
+          <Separator bordered style={styles.contentSeparatorStyle}>
+            <Text style={styles.contentSeparatorTextStyle}>Select Area</Text>
           </Separator>
           <Form>
             <Picker
@@ -84,23 +88,21 @@ export default class SelectArea extends Component {
               headerBackButtonTextStyle={{ color: "#fff" }}
               headerTitleStyle={{ color: "#fff" }}
               selectedValue={selectedArea}
-              onValueChange={value => this.setState({ selectedArea: value })}
+              onValueChange={selectedArea => this.setState({ selectedArea })}
               placeholder="Select Your Area"
             >
-              <Picker.Item label="  Al Ghubra1" value="Al_Ghubra1" />
-              <Picker.Item label="  Al Ghubra2" value="Al_Ghubra2" />
-              <Picker.Item label="  Al Khuwair33" value="Al_Khuwair33" />
-              <Picker.Item label="  Al KhuwairSouth" value="Al_KhuwairSouth" />
+              {listOfAreas.map(area => (
+                <Picker.Item label={`  ${area}`} value={area} />
+              ))}
             </Picker>
           </Form>
-          <Button
+          <NativeBaseButton
             full
             rounded
-            onPress={() => Actions.workorders()}
-            style={styles.submitButtonStyle}
-          >
-            <Text style={styles.submitTextStyle}>Submit</Text>
-          </Button>
+            onPress={handleSelectedArea}
+            buttonText="SUBMIT"
+            style={styles.buttonStyle}
+          />
         </Content>
       </Container>
     );
@@ -108,20 +110,19 @@ export default class SelectArea extends Component {
 }
 
 const styles = StyleSheet.create({
+  subtitleStyle: { color: "white", fontStyle: "italic" },
+  contentSeparatorStyle: {},
+  contentSeparatorTextStyle: {
+    fontSize: 15,
+    color: "black",
+    fontWeight: "bold"
+  },
   headerContentStyle: {
     color: "white",
     fontWeight: "bold",
     fontSize: 20
   },
-  submitTextStyle: {
-    fontSize: 20,
-    color: "white",
-    fontWeight: "bold",
+  buttonStyle: {
     margin: 10
-  },
-  submitButtonStyle: {
-    margin: 10,
-    // marginTop: 10,
-    // marginBottom: 10
   }
 });

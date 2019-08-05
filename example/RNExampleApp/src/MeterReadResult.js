@@ -248,10 +248,12 @@ export default class MeterReadResult extends Component {
             <Button
               full
               rounded
-              style={styles.submitButtonStyle}
+              style={styles.capturePhotoButtonStyle}
               onPress={handlePhoto}
             >
-              <Text style={styles.submitButtonTextStyle}>Capture Photo</Text>
+              <Text style={styles.capturePhotoButtonTextStyle}>
+                Capture Photo
+              </Text>
             </Button>
             {this.props.capturestate === true ? (
               <Button
@@ -296,7 +298,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold"
   },
-
   container: {
     flex: 1,
     justifyContent: "space-around",
@@ -329,12 +330,27 @@ const styles = StyleSheet.create({
     margin: 10
   },
   submitButtonStyle: {
-    marginTop: 10,
-    marginBottom: 10,
+    margin: 10,
     alignItems: "stretch",
     justifyContent: "center"
   },
   submitButtonTextStyle: {
+    margin: 10,
+    fontWeight: "bold",
+    alignContent: "center",
+    color: "white",
+    width: "100%",
+    alignItems: "center",
+    alignSelf: "center",
+    fontSize: 20,
+    textAlign: "center"
+  },
+  capturePhotoButtonStyle: {
+    margin: 10,
+    alignItems: "stretch",
+    justifyContent: "center"
+  },
+  capturePhotoButtonTextStyle: {
     margin: 10,
     fontWeight: "bold",
     alignContent: "center",

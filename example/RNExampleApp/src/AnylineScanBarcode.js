@@ -33,7 +33,7 @@ import ShipConConfig from "../config/ContainerShipConfig";
 import CattleTagConfig from "../config/CattleTagConfig";
 import GermanIDFrontConfig from "../config/GermanIDFrontConfig";
 import VerticalContainerConfig from "../config/VerticalContainerConfig";
-import Login from "./Login";
+import Login from './views/Login';
 
 // Disable Warnings
 console.disableYellowBox = true;
