@@ -127,7 +127,10 @@ export default class App extends React.Component {
     if (this.state.isPermitted) {
       return (
         <CameraKitCameraScreen
-          actions={{ rightButtonText: "Done", leftButtonText: "Cancel" }}
+          actions={{
+            rightButtonText: "Done"
+            // leftButtonText: "Cancel"
+          }}
           onBottomButtonPressed={event => this.onBottomButtonPressed(event)}
           flashImages={{
             on: require("./assets/images/flashOn.png"),

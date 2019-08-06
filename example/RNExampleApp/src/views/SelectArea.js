@@ -111,7 +111,7 @@ export default class SelectArea extends Component {
 
 const styles = StyleSheet.create({
   subtitleStyle: { color: "white", fontStyle: "italic" },
-  contentSeparatorStyle: {},
+  contentSeparatorStyle: { height: 50 },
   contentSeparatorTextStyle: {
     fontSize: 15,
     color: "black",

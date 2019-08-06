@@ -14,41 +14,38 @@ import {
   Subtitle
 } from "native-base";
 import Icon from "react-native-vector-icons/AntDesign";
+import MyStatusBar from "./components/MyStatusBar";
 
 export default class Acknowledgement extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { acknowledgementNumber: "11223313" };
-  }
+  state = { acknowledgementNumber: "11223313" };
+
   static navigationOptions = {
     header: null
   };
+
   handleLogout = async () => {
     await AsyncStorage.removeItem("isUserLogin");
     Actions.login();
   };
+
+  hanleBackButtonClick = () => Actions.pop();
+
   render() {
     const {
+      hanleBackButtonClick,
       handleLogout,
       state: { acknowledgementNumber }
     } = this;
     return (
       <Container>
-        <StatusBar
-          backgroundColor={styles.container.backgroundColor}
-          barStyle="default"
-          animated
-          hidden={false}
-          networkActivityIndicatorVisible={false}
-          translucent={false}
-        />
+        <MyStatusBar />
         <Header>
           <Left>
-            <Button transparent onPress={() => Actions.pop()}>
+            <Button transparent onPress={hanleBackButtonClick}>
               <Icon name="back" size={30} color="#66cc41" />
             </Button>
           </Left>
-          <Body style={{ flex: 1 }}>
+          <Body>
             <Title>
               <Text style={styles.headerContentStyle}>Barcode Result</Text>
             </Title>
@@ -58,21 +55,13 @@ export default class Acknowledgement extends Component {
               </Text>
             </Subtitle>
           </Body>
-          <Right style={{ flex: 1 }}>
+          <Right>
             <Button transparent onPress={handleLogout}>
               <Icon name="logout" size={30} color="#ffb10a" />
             </Button>
           </Right>
         </Header>
-        <Content
-          contentContainerStyle={{
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%"
-          }}
-        >
+        <Content contentContainerStyle={styles.contentContainerStyle}>
           <Text style={styles.successTextStyle}>Success !!!</Text>
 
           <Text
@@ -96,14 +85,13 @@ export default class Acknowledgement extends Component {
               alignItems: "center"
             }}
           >
-            <Button
+            <NativeBaseButton
               full
               rounded
-              // onPress={() => Actions.summary()}
-              style={styles.okButtonStyle}
-            >
-              <Text style={styles.okButtonTextStyle}>OK</Text>
-            </Button>
+              // onPress={}
+              buttonText="OK"
+              style={styles.buttonStyle}
+            />
           </View>
         </Content>
       </Container>
@@ -112,11 +100,12 @@ export default class Acknowledgement extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  contentContainerStyle: {
     flex: 1,
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#338779"
+    width: "100%"
   },
   headerContentStyle: {
     color: "white",
@@ -134,25 +123,13 @@ const styles = StyleSheet.create({
   successMessageStyle: {
     fontSize: 15,
     color: "black",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   acknowledgementNoStyle: {
     fontWeight: "bold",
     fontSize: 18
   },
-  okButtonStyle: {
-    margin: 10,
-    alignItems: "stretch",
-    justifyContent: "center"
-  },
-  okButtonTextStyle: {
-    fontWeight: "bold",
-    alignContent: "center",
-    color: "white",
-    width: "100%",
-    alignItems: "center",
-    alignSelf: "center",
-    fontSize: 20,
-    textAlign: "center"
+  buttonStyle: {
+    margin: 10
   }
 });

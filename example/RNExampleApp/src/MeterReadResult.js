@@ -81,14 +81,15 @@ export default class MeterReadResult extends Component {
       accountNumber
     });
   };
-  setModalVisible(visible) {
+  setModalVisible = visible => {
     this.setState({ modalVisible: visible });
-  }
+  };
   render() {
     const {
       handleSubmit,
       handleLogout,
       handlePhoto,
+      setModalVisible,
       state: { reading },
       props: { imagePath, fullImagePath, SPID, accountNumber }
     } = this;
@@ -112,28 +113,42 @@ export default class MeterReadResult extends Component {
               transparent={false}
               visible={this.state.modalVisible}
             >
-              <View style={{ marginTop: 22 }}>
-                <View>
-                  <Image
-                    style={{
-                      width: Dimensions.get("window").width,
-                      height: Dimensions.get("window").height - 100
-                    }}
-                    source={{
-                      uri: "file://" + this.props.captureImages[0].uri
-                    }}
-                  />
-                  <Button
-                    full
-                    rounded
-                    style={styles.submitButtonStyle}
-                    onPress={() => {
-                      this.setModalVisible(!this.state.modalVisible);
-                    }}
-                  >
-                    <Text>Close</Text>
-                  </Button>
-                </View>
+              <View
+                // style={{ marginTop: 22 }}
+                style={{
+                  width: Dimensions.get("window").width,
+                  height: Dimensions.get("window").height - 200
+                }}
+              >
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    padding: 10
+                  }}
+                  source={{
+                    uri: "file://" + this.props.captureImages[0].uri
+                  }}
+                />
+                {/* <Button
+                  full
+                  rounded
+                  style={{ margin: 10 }}
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}
+                >
+                  <Text>Close</Text>
+                </Button> */}
+                <NativeBaseButton
+                  full
+                  rounded
+                  style={{ margin: 10 }}
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}
+                  buttonText="Close"
+                />
               </View>
             </Modal>
           </View>
@@ -259,7 +274,7 @@ export default class MeterReadResult extends Component {
               <Button
                 transparent
                 onPress={() => {
-                  this.setModalVisible(true);
+                  setModalVisible(true);
                 }}
               >
                 <Text>{this.props.captureImages[0].name}</Text>

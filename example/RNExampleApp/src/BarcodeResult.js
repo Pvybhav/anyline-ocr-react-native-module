@@ -137,13 +137,13 @@ export default class BarcodeResult extends Component {
               )}
             </Item>
           </Form>
-          {!isNaN(accountNumber) && (
-            <AnylineMeterReadScanner
-              style={{ flex: 0.2, height: "20%" }}
-              SPID={SPID}
-              accountNumber={accountNumber}
-            />
-          )}
+          {/* {!isNaN(accountNumber) && ( */}
+          <AnylineMeterReadScanner
+            style={{ flex: 0.2, height: "20%" }}
+            SPID={SPID}
+            accountNumber={accountNumber}
+          />
+          {/* )} */}
         </Content>
       </Container>
     );
