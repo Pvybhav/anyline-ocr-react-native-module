@@ -30,10 +30,13 @@ export default class Acknowledgement extends Component {
 
   hanleBackButtonClick = () => Actions.pop();
 
+  handleOKPress = () => Actions.submissionSummary();
+
   render() {
     const {
       hanleBackButtonClick,
       handleLogout,
+      handleOKPress,
       state: { acknowledgementNumber }
     } = this;
     return (
@@ -47,7 +50,7 @@ export default class Acknowledgement extends Component {
           </Left>
           <Body>
             <Title>
-              <Text style={styles.headerContentStyle}>Barcode Result</Text>
+              <Text style={styles.headerContentStyle}>Acknowledgement</Text>
             </Title>
             <Subtitle>
               <Text style={{ color: "white", fontStyle: "italic" }}>
@@ -88,7 +91,7 @@ export default class Acknowledgement extends Component {
             <NativeBaseButton
               full
               rounded
-              // onPress={}
+              onPress={handleOKPress}
               buttonText="OK"
               style={styles.buttonStyle}
             />

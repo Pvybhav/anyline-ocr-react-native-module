@@ -11,6 +11,7 @@ import BarcodeResult from "./BarcodeResult";
 import MeterReadResult from "./MeterReadResult";
 import Acknowledgement from "./Acknowledgement";
 import CapturePhoto from "./CapturePhoto";
+import SubmissionSummary from "./views/SubmissionSummary";
 
 class Routes extends Component {
   state = {
@@ -98,11 +99,17 @@ class Routes extends Component {
             key="acknowledgement"
             component={Acknowledgement}
             title="Acknowledgement"
+            initial
           />
           <Scene
             key="capturePhoto"
             component={CapturePhoto}
             title="Capture Photo"
+          />
+          <Scene
+            key="submissionSummary"
+            component={SubmissionSummary}
+            title="Summary of Submissions"
           />
         </Scene>
       </Router>
